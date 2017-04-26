@@ -2,16 +2,16 @@ Package: dina
 Type: Package
 Title: Bayesian Estimation of DINA Model
 Version: 1.0.2
-Date: 2017-04-25
+Date: 2017-04-26
 Authors@R: c(person("Steven Andrew", "Culpepper", role = c("aut", "cph","cre"),
              email = "sculpepp@illinois.edu"))
-Description: Estimate the Deterministic Input, Noisy ``And'' Gate (DINA)
+Description: Estimate the Deterministic Input, Noisy "And" Gate (DINA)
     cognitive diagnostic model parameters using the Gibbs sampler described
-    by Culpepper (2015) <doi: 10.3102/1076998615595403>.
+    by Culpepper (2015) <doi:10.3102/1076998615595403>.
 URL: https://github.com/tmsalab/dina
 BugReports: https://github.com/tmsalab/dina/issues
 License: GPL (>= 2)
-Imports: Rcpp
-LinkingTo: Rcpp, RcppArmadillo
-Depends: R (>= 3.0.1)
+Imports: Rcpp (>= 0.12.10)
+LinkingTo: Rcpp (>= 0.12.10), RcppArmadillo (>= 0.7.800)
+Depends: R (>= 3.0.2)
 RoxygenNote: 6.0.1
