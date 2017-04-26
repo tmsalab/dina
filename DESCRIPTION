@@ -1,7 +1,7 @@
 Package: dina
 Type: Package
 Title: Bayesian Estimation of DINA Model
-Version: 1.0
+Version: 1.0.1
 Date: 2015-10-19
 Authors@R: c(person("Steven Andrew", "Culpepper", role = c("aut", "cph","cre"), email =
     "sculpepp@illinois.edu"))

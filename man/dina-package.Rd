@@ -12,7 +12,7 @@ Estimate the Deterministic Input, Noisy ``And'' Gate (DINA) cognitive diagnostic
 \tabular{ll}{
 Package: \tab dina\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
+Version: \tab 1.0.1\cr
 Date: \tab 2015-02-25\cr
 License: \tab GPL (>= 2)\cr
 }

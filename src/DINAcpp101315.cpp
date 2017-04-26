@@ -232,8 +232,8 @@ Rcpp::List DINA_Gibbs(const arma::mat& Y,const arma::mat& Amat,const arma::mat& 
   arma::vec pil0=arma::ones<arma::vec>(C)/double(C);//prior probability
 
   //Savinging output
-  arma::mat SS(J,chain_length);
-  arma::mat GS(J,chain_length);
+  arma::mat SigS(J,chain_length);
+  arma::mat GamS(J,chain_length);
   arma::mat US(J,chain_length);
   arma::mat PIs(C,chain_length);
   arma::mat CLASSES(N,chain_length);
@@ -266,14 +266,14 @@ Rcpp::List DINA_Gibbs(const arma::mat& Y,const arma::mat& Amat,const arma::mat& 
       //update value for ss and gs. 
       ss              = Rcpp::as<arma::vec>(step1b[0]);
       gs              = Rcpp::as<arma::vec>(step1b[1]);
-      SS.col(t)       = ss;
-      GS.col(t)       = gs;
+      SigS.col(t)       = ss;
+      GamS.col(t)       = gs;
   }
 
  return Rcpp::List::create(Rcpp::Named("CLASSES",CLASSES),
                           Rcpp::Named("PIs",PIs),
-                          Rcpp::Named("SS",SS),
-                          Rcpp::Named("GS",GS)
+                          Rcpp::Named("SigS",SigS),
+                          Rcpp::Named("GamS",GamS)
                           );
 }
   

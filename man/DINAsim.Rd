@@ -77,10 +77,10 @@ burnin = 100
   outchain <- DINA_Gibbs(Y_sim,Amat=As,Q,chain_length=chainLength)
 
   #Summarize posterior samples for g and 1-s
-  mGs = apply(outchain$GS[,burnin:chainLength],1,mean)
-  sGs = apply(outchain$GS[,burnin:chainLength],1,sd)
-  m1mSS = 1-apply(outchain$SS[,burnin:chainLength],1,mean)
-  s1mSS = apply(outchain$SS[,burnin:chainLength],1,sd)
+  mGs = apply(outchain$GamS[,burnin:chainLength],1,mean)
+  sGs = apply(outchain$GamS[,burnin:chainLength],1,sd)
+  m1mSS = 1-apply(outchain$SigS[,burnin:chainLength],1,mean)
+  s1mSS = apply(outchain$SigS[,burnin:chainLength],1,sd)
   output=cbind(mGs,sGs,m1mSS,s1mSS)
   colnames(output) = c('g Est','g SE','1-s Est','1-s SE')
   rownames(output) = paste0('Item ',1:J)

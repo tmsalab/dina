@@ -19,7 +19,7 @@ DINA_Gibbs(Y,Amat,Q,chain_length)
 A list with samples from the posterior distribution.
 }
 \description{
-Function for sampling parameters from full conditional distributions. The function returns a list of arrays or matrices with parameter posterior samples. Note that the output includes the posterior samples in objects named: \code{CLASSES} = individual attribute profiles, \code{PIs} = latent class proportions, \code{SS} = item slipping parameters, and \code{GS} = item guessing parameters.
+Function for sampling parameters from full conditional distributions. The function returns a list of arrays or matrices with parameter posterior samples. Note that the output includes the posterior samples in objects named: \code{CLASSES} = individual attribute profiles, \code{PIs} = latent class proportions, \code{SigS} = item slipping parameters, and \code{GamS} = item guessing parameters.
 }
 \author{
 Steven Andrew Culpepper
@@ -57,10 +57,10 @@ burnin = 1000
 outchain_1984 <- DINA_Gibbs(Y=Y_1984,Amat=As_1984,Q_1984,chain_length=chainLength)
 
   #Summarize posterior samples for g and 1-s
-  mgs_1984 = apply(outchain_1984$GS[,burnin:chainLength],1,mean)
-  sgs_1984 = apply(outchain_1984$GS[,burnin:chainLength],1,sd)
-  mss_1984 = 1-apply(outchain_1984$SS[,burnin:chainLength],1,mean)
-  sss_1984 = apply(outchain_1984$SS[,burnin:chainLength],1,sd)
+  mgs_1984 = apply(outchain_1984$GamS[,burnin:chainLength],1,mean)
+  sgs_1984 = apply(outchain_1984$GamS[,burnin:chainLength],1,sd)
+  mss_1984 = 1-apply(outchain_1984$SigS[,burnin:chainLength],1,mean)
+  sss_1984 = apply(outchain_1984$SigS[,burnin:chainLength],1,sd)
   output_1984=cbind(mgs_1984,sgs_1984,mss_1984,sss_1984)
   colnames(output_1984) = c('g Est','g SE','1-s Est','1-s SE')
   rownames(output_1984) = colnames(Y_1984)
@@ -123,10 +123,10 @@ burnin = 100
   outchain <- DINA_Gibbs(Y_sim,Amat=As,Q,chain_length=chainLength)
 
   #Summarize posterior samples for g and 1-s  
-  mGs = apply(outchain$GS[,burnin:chainLength],1,mean)
-  sGs = apply(outchain$GS[,burnin:chainLength],1,sd)
-  m1mSS = 1-apply(outchain$SS[,burnin:chainLength],1,mean)
-  s1mSS = apply(outchain$SS[,burnin:chainLength],1,sd)
+  mGs = apply(outchain$GamS[,burnin:chainLength],1,mean)
+  sGs = apply(outchain$GamS[,burnin:chainLength],1,sd)
+  m1mSS = 1-apply(outchain$SigS[,burnin:chainLength],1,mean)
+  s1mSS = apply(outchain$SigS[,burnin:chainLength],1,sd)
   output=cbind(mGs,sGs,m1mSS,s1mSS)
   colnames(output) = c('g Est','g SE','1-s Est','1-s SE')
   rownames(output) = paste0('Item ',1:J)
