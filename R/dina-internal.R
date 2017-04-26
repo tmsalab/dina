@@ -129,4 +129,4 @@ c(403L, 10L, -50749765L, 1006557834L, -882506388L, 1044505327L,
 
 #' @useDynLib "dina", .registration=TRUE
 #' @importFrom Rcpp evalCpp
-NULL
+"_PACKAGE"
