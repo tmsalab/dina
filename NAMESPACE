@@ -1,0 +1,4 @@
+useDynLib("dina")
+#import(RcppArmadillo)
+importFrom("Rcpp", evalCpp)
+exportPattern("^[[:alpha:]]+")
