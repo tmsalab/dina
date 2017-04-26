@@ -1,16 +1,12 @@
 #include <RcppArmadillo.h>
-#include <Rcpp.h>
-// [[Rcpp::depends(RcppArmadillo)]]
 
-using namespace Rcpp;
-
-//' @title Generate Multinomial Random Variable
-//' @description Sample a multinomial random variable for given probabilities. 
-//' @usage rmultinomial(ps)
+//' Generate Multinomial Random Variable
+//' 
+//' Sample a multinomial random variable for given probabilities. 
 //' @param ps A \code{vector} for the probability of each category.
 //' @return A \code{vector} from a multinomial with probability ps.
 //' @author Steven Andrew Culpepper
-//' 
+//' @export
 // [[Rcpp::export]]
 double rmultinomial(const arma::vec& ps){
   unsigned int C = ps.n_elem;
@@ -23,13 +19,13 @@ double rmultinomial(const arma::vec& ps){
   return sum(Ips);
 }
 
-//' @title Generate Dirichlet Random Variable
-//' @description Sample a Dirichlet random variable. 
-//' @usage rDirichlet(deltas)
+//' Generate Dirichlet Random Variable
+//' 
+//' Sample a Dirichlet random variable. 
 //' @param deltas A \code{vector} of Dirichlet parameters.
 //' @return A \code{vector} from a Dirichlet.
 //' @author Steven Andrew Culpepper
-//' 
+//' @export
 // [[Rcpp::export]]
 arma::vec rDirichlet(const arma::vec& deltas){
   unsigned int C = deltas.n_elem;
@@ -43,18 +39,84 @@ arma::vec rDirichlet(const arma::vec& deltas){
 }
 
 
-//' @title Simulation Responses from the DINA model
-//' @description Sample responses from the DINA model for given attribute profiles, Q matrix, and item parmeters. 
-//' @usage DINAsim(alphas,Q,ss,gs)
+//' Simulation Responses from the DINA model
+//' 
+//' Sample responses from the DINA model for given attribute profiles, Q matrix,
+//' and item parmeters. Returns a \code{matrix} of dichotomous responses
+//' generated under DINA model.
 //' @param alphas A N by K \code{matrix} of latent attributes.
 //' @param Q A N by K \code{matrix} indicating which skills are required for which items.
 //' @param ss A J \code{vector} of item slipping parameters.
 //' @param gs A J \code{vector} of item guessing parameters.
 //' @return A N by J \code{matrix} of responses from the DINA model.
 //' @author Steven Andrew Culpepper
-//' 
+//' @export
+//' @seealso \code{\link{DINA_Gibbs} }
+//' @examples
+//' ###########################################
+//' #de la Torre (2009) Simulation Replication
+//' ###########################################
+//' N = 200
+//' K = 5
+//' J = 30
+//' delta0 = rep(1,2^K)
+//'     
+//' # Creating Q matrix
+//' Q = matrix(rep(diag(K),2),2*K,K,byrow=TRUE)
+//' for(mm in 2:K){
+//'     temp = combn(1:K,m=mm)
+//'     tempmat = matrix(0,ncol(temp),K)
+//'     for(j in 1:ncol(temp)) tempmat[j,temp[,j]] = 1
+//'     Q = rbind(Q,tempmat)
+//' }
+//' Q = Q[1:J,]
+//'         
+//' # Setting item parameters and generating attribute profiles
+//' ss = gs = rep(.2,J)
+//' PIs = rep(1/(2^K),2^K)
+//' CLs = c((1:(2^K))\%*\%rmultinom(n=N,size=1,prob=PIs) )
+//'             
+//' # Defining matrix of possible attribute profiles
+//' As = rep(0,K)
+//' for(j in 1:K){
+//'     temp = combn(1:K,m=j)
+//'     tempmat = matrix(0,ncol(temp),K)
+//'     for(j in 1:ncol(temp)) tempmat[j,temp[,j]] = 1
+//'     As = rbind(As,tempmat)
+//' }
+//' As = as.matrix(As)
+//'                     
+//' # Sample true attribute profiles
+//' Alphas = As[CLs,]
+//'                     
+//' # Simulate data under DINA model 
+//' gen = DINAsim(Alphas,Q,ss,gs)
+//' Y_sim = gen$Y
+//'                         
+//' # Execute MCMC
+//' # NOTE: small chain length used to reduce computation time for pedagogical example.
+//' chainLength = 200
+//' burnin = 100
+//' outchain <- DINA_Gibbs(Y_sim, Amat = As, Q, chain_length = chainLength)
+//'                             
+//' # Summarize posterior samples for g and 1-s
+//' mGs = apply(outchain$GamS[,burnin:chainLength],1,mean)
+//' sGs = apply(outchain$GamS[,burnin:chainLength],1,sd)
+//' m1mSS = 1-apply(outchain$SigS[,burnin:chainLength],1,mean)
+//' s1mSS = apply(outchain$SigS[,burnin:chainLength],1,sd)
+//' output=cbind(mGs,sGs,m1mSS,s1mSS)
+//' colnames(output) = c('g Est','g SE','1-s Est','1-s SE')
+//' rownames(output) = paste0('Item ',1:J)
+//' print(output,digits=3)
+//'                                 
+//' # Summarize marginal skill distribution using posterior samples for latent class proportions
+//' PIoutput = cbind(apply(outchain$PIs,1,mean),apply(outchain$PIs,1,sd))
+//' colnames(PIoutput) = c('EST','SE')
+//' rownames(PIoutput) = apply(As,1,paste0,collapse='')
+//' print(PIoutput,digits=3)
 // [[Rcpp::export]]
-Rcpp::List DINAsim(const arma::mat& alphas,const arma::mat& Q,const arma::vec& ss,const arma::vec& gs){
+Rcpp::List DINAsim(const arma::mat& alphas, const arma::mat& Q,
+                   const arma::vec& ss, const arma::vec& gs){
   unsigned int N = alphas.n_rows;
   unsigned int J = Q.n_rows;
   
@@ -84,9 +146,10 @@ Rcpp::List DINAsim(const arma::mat& alphas,const arma::mat& Q,const arma::vec& s
                               );
 }
 
-//' @title Update attributes and latent class probabilities
-//' @description Update attributes and latent class probabilities by sampling from full conditional distribution. 
-//' @usage update_alpha(Amat,Q,ss,gs,Y,PIs,ALPHAS,delta0)
+//' Update attributes and latent class probabilities
+//' 
+//' Update attributes and latent class probabilities by sampling from full
+//' conditional distribution. 
 //' @param Amat A C by K \code{matrix} of latent classes.
 //' @param Q A N by K \code{matrix} indicating which skills are required for which items.
 //' @param ss A J \code{vector} of item slipping parameters.
@@ -97,10 +160,13 @@ Rcpp::List DINAsim(const arma::mat& alphas,const arma::mat& Q,const arma::vec& s
 //' @param delta0 A J \code{vector} of Dirichlet prior parameters.
 //' @return A N by K \code{matrix} of attributes and a C \code{vector} of class probabilities.
 //' @author Steven Andrew Culpepper
-//' 
+//' @export
 // [[Rcpp::export]]
-Rcpp::List update_alpha(const arma::mat& Amat,const arma::mat& Q,const arma::vec& ss,
-  const arma::vec& gs,const arma::mat& Y,const arma::vec& PIs, arma::mat& ALPHAS,const arma::vec& delta0){
+Rcpp::List update_alpha(const arma::mat& Amat, const arma::mat& Q,
+                        const arma::vec& ss, const arma::vec& gs,
+                        const arma::mat& Y, const arma::vec& PIs,
+                        arma::mat& ALPHAS, const arma::vec& delta0) {
+    
   unsigned int N = Y.n_rows;
   unsigned int J = Q.n_rows;
   unsigned int C = Amat.n_rows;
@@ -151,9 +217,9 @@ Rcpp::List update_alpha(const arma::mat& Amat,const arma::mat& Q,const arma::vec
                               );
 }
 
-//' @title Update item parameters
-//' @description Update guessing and slipping parameters from full conditional distribution. 
-//' @usage update_sg(Y,Q,ALPHAS,ss_old,as0,bs0,ag0,bg0)
+//' Update item parameters
+//' 
+//' Update guessing and slipping parameters from full conditional distribution. 
 //' @param Y A N by J \code{matrix} of observed responses.
 //' @param Q A N by K \code{matrix} indicating which skills are required for which items.
 //' @param ALPHAS A N by K \code{matrix} of latent attributes.
@@ -164,10 +230,11 @@ Rcpp::List update_alpha(const arma::mat& Amat,const arma::mat& Q,const arma::vec
 //' @param bg0 Guessing prior beta parameter for Beta distribution.
 //' @return A list with two J \code{vectors} of guessing and slipping parameters.
 //' @author Steven Andrew Culpepper
-//' 
+//' @export
 // [[Rcpp::export]]
-Rcpp::List update_sg(const arma::mat& Y,const arma::mat& Q,const arma::mat& ALPHAS,const arma::vec& ss_old,
-  double as0,double bs0,double ag0,double bg0){
+Rcpp::List update_sg(const arma::mat& Y, const arma::mat& Q, 
+                     const arma::mat& ALPHAS, const arma::vec& ss_old,
+                     double as0, double bs0, double ag0, double bg0) {
 
   unsigned int N = Y.n_rows;
   unsigned int J = Y.n_cols;
@@ -206,18 +273,140 @@ Rcpp::List update_sg(const arma::mat& Y,const arma::mat& Q,const arma::mat& ALPH
 }
 
 
-//' @title Implement Gibbs sampler
-//' @description Function for sampling parameters from full conditional distributions. 
-//' @usage DINA_Gibbs(Y,Amat,Q,chain_length)
-//' @param Y A N by J \code{matrix} of observed responses.
-//' @param Amat A C by K \code{matrix} of latent classes.
-//' @param Q A N by K \code{matrix} indicating which skills are required for which items.
+//' Generate Posterior Distribution with Gibbs sampler
+//' 
+//' Function for sampling parameters from full conditional distributions.
+//' The function returns a list of arrays or matrices with parameter posterior
+//' samples. Note that the output includes the posterior samples in objects 
+//' named: \code{CLASSES} = individual attribute profiles,
+//' \code{PIs} = latent class proportions,
+//' \code{SigS} = item slipping parameters, and 
+//' \code{GamS} = item guessing parameters.
+//' @param Y            A N by J \code{matrix} of observed responses.
+//' @param Amat         A C by K \code{matrix} of latent classes.
+//' @param Q            A N by K \code{matrix} indicating which skills are
+//'                     required for which items.
 //' @param chain_length Number of MCMC iterations.
 //' @return A list with samples from the posterior distribution.
 //' @author Steven Andrew Culpepper
+//' @export
+//' @seealso \code{\link{DINAsim}} 
+//' @examples
+//' \dontrun{
+//' ###################################
+//' #Tatsuoka Fraction Subtraction Data
+//' ###################################
+//' require(CDM)
+//' data(fraction.subtraction.data)
+//' Y_1984 = as.matrix(fraction.subtraction.data)
+//' Q_1984 = as.matrix(fraction.subtraction.qmatrix)
+//' K_1984 = ncol(fraction.subtraction.qmatrix)
+//' J_1984 = ncol(Y_1984)
+//'     
+//' # Creating matrix of possible attribute profiles
+//' As_1984 = rep(0,K_1984)
+//' for(j in 1:K_1984){
+//'     temp = combn(1:K_1984,m=j)
+//'     tempmat = matrix(0,ncol(temp),K_1984)
+//'     for(j in 1:ncol(temp)) tempmat[j,temp[,j]] = 1
+//'     As_1984 = rbind(As_1984,tempmat)
+//' }
+//' As_1984 = as.matrix(As_1984)
+//'             
+//' # Generate samples from posterior distribution
+//' # May take 8 minutes
+//' chainLength <- 5000
+//' burnin <- 1000
+//' outchain_1984 <- DINA_Gibbs(Y = Y_1984, Amat = As_1984,
+//'                             Q_1984, chain_length = chainLength)
+//'                 
+//' # Summarize posterior samples for g and 1-s
+//' mgs_1984 = apply(outchain_1984$GamS[,burnin:chainLength],1,mean)
+//' sgs_1984 = apply(outchain_1984$GamS[,burnin:chainLength],1,sd)
+//' mss_1984 = 1-apply(outchain_1984$SigS[,burnin:chainLength],1,mean)
+//' sss_1984 = apply(outchain_1984$SigS[,burnin:chainLength],1,sd)
+//' output_1984=cbind(mgs_1984,sgs_1984,mss_1984,sss_1984)
+//' colnames(output_1984) = c('g Est','g SE','1-s Est','1-s SE')
+//' rownames(output_1984) = colnames(Y_1984)
+//' print(output_1984,digits=3)
+//'                     
+//' # Summarize marginal skill distribution using posterior samples for latent class proportions
+//' marg_PIs = t(As_1984)\%*\%outchain_1984$PIs
+//' PI_Est = apply(marg_PIs[,burnin:chainLength],1,mean)
+//' PI_Sd = apply(marg_PIs[,burnin:chainLength],1,sd)
+//' PIoutput = cbind(PI_Est,PI_Sd)
+//' colnames(PIoutput) = c('EST','SE')
+//' rownames(PIoutput) = paste0('Skill ',1:K_1984)
+//' print(PIoutput,digits=3)
 //' 
+//' #####################################################
+//' #de la Torre (2009) Simulation Replication w/ N = 200
+//' #####################################################
+//' N = 200
+//' K = 5
+//' J = 30
+//' delta0 = rep(1,2^K)
+//' 
+//' #Creating Q matrix
+//' Q = matrix(rep(diag(K),2),2*K,K,byrow=TRUE)
+//' for(mm in 2:K){
+//'     temp = combn(1:K,m=mm)
+//'     tempmat = matrix(0,ncol(temp),K)
+//'     for(j in 1:ncol(temp)) tempmat[j,temp[,j]] = 1
+//'     Q = rbind(Q,tempmat)
+//' }
+//' Q = Q[1:J,]
+//'     
+//' # Setting item parameters and generating attribute profiles
+//' ss = gs = rep(.2,J)
+//' PIs = rep(1/(2^K),2^K)
+//' CLs = c((1:(2^K))\%*\%rmultinom(n=N,size=1,prob=PIs) )
+//'         
+//' # Defining matrix of possible attribute profiles
+//' As = rep(0,K)
+//' for(j in 1:K){
+//'     temp = combn(1:K,m=j)
+//'     tempmat = matrix(0,ncol(temp),K)
+//'     for(j in 1:ncol(temp)) tempmat[j,temp[,j]] = 1
+//'     As = rbind(As,tempmat)
+//' }
+//' As = as.matrix(As)
+//'                 
+//' # Sample true attribute profiles
+//' Alphas = As[CLs,]
+//'                 
+//' # Simulate data under DINA model 
+//' gen = DINAsim(Alphas,Q,ss,gs)
+//' Y_sim = gen$Y
+//'                     
+//' # Execute MCMC
+//' # NOTE small chain length used to reduce computation time for pedagogical example.
+//' chainLength = 200
+//' burnin = 100
+//'                     
+//' outchain <- DINA_Gibbs(Y_sim,Amat=As,Q,chain_length=chainLength)
+//'                         
+//' # Summarize posterior samples for g and 1-s  
+//' mGs = apply(outchain$GamS[,burnin:chainLength],1,mean)
+//' sGs = apply(outchain$GamS[,burnin:chainLength],1,sd)
+//' m1mSS = 1 - apply(outchain$SigS[,burnin:chainLength],1,mean)
+//' s1mSS = apply(outchain$SigS[,burnin:chainLength],1,sd)
+//' output = cbind(mGs,sGs,m1mSS,s1mSS)
+//' colnames(output) = c('g Est','g SE','1-s Est','1-s SE')
+//' rownames(output) = paste0('Item ',1:J)
+//' print(output, digits=3)
+//'                             
+//' # Summarize marginal skill distribution using posterior samples for latent class proportions
+//' PIoutput = cbind(apply(outchain$PIs,1,mean),apply(outchain$PIs,1,sd))
+//' colnames(PIoutput) = c('EST','SE')
+//' rownames(PIoutput) = apply(As,1,paste0,collapse='')
+//' print(PIoutput,digits=3)
+//' }
 // [[Rcpp::export]]
-Rcpp::List DINA_Gibbs(const arma::mat& Y,const arma::mat& Amat,const arma::mat& Q,unsigned int chain_length=10000){
+Rcpp::List DINA_Gibbs(const arma::mat& Y, 
+                      const arma::mat& Amat,
+                      const arma::mat& Q,
+                      unsigned int chain_length = 10000){
   unsigned int N = Y.n_rows;
   unsigned int J = Y.n_cols;
   unsigned int K = Amat.n_cols;
