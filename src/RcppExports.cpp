@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // rmultinomial
 double rmultinomial(const arma::vec& ps);
-RcppExport SEXP dina_rmultinomial(SEXP psSEXP) {
+RcppExport SEXP _dina_rmultinomial(SEXP psSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -19,7 +19,7 @@ END_RCPP
 }
 // rDirichlet
 arma::vec rDirichlet(const arma::vec& deltas);
-RcppExport SEXP dina_rDirichlet(SEXP deltasSEXP) {
+RcppExport SEXP _dina_rDirichlet(SEXP deltasSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -30,7 +30,7 @@ END_RCPP
 }
 // DINAsim
 Rcpp::List DINAsim(const arma::mat& alphas, const arma::mat& Q, const arma::vec& ss, const arma::vec& gs);
-RcppExport SEXP dina_DINAsim(SEXP alphasSEXP, SEXP QSEXP, SEXP ssSEXP, SEXP gsSEXP) {
+RcppExport SEXP _dina_DINAsim(SEXP alphasSEXP, SEXP QSEXP, SEXP ssSEXP, SEXP gsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -44,7 +44,7 @@ END_RCPP
 }
 // update_alpha
 Rcpp::List update_alpha(const arma::mat& Amat, const arma::mat& Q, const arma::vec& ss, const arma::vec& gs, const arma::mat& Y, const arma::vec& PIs, arma::mat& ALPHAS, const arma::vec& delta0);
-RcppExport SEXP dina_update_alpha(SEXP AmatSEXP, SEXP QSEXP, SEXP ssSEXP, SEXP gsSEXP, SEXP YSEXP, SEXP PIsSEXP, SEXP ALPHASSEXP, SEXP delta0SEXP) {
+RcppExport SEXP _dina_update_alpha(SEXP AmatSEXP, SEXP QSEXP, SEXP ssSEXP, SEXP gsSEXP, SEXP YSEXP, SEXP PIsSEXP, SEXP ALPHASSEXP, SEXP delta0SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -62,7 +62,7 @@ END_RCPP
 }
 // update_sg
 Rcpp::List update_sg(const arma::mat& Y, const arma::mat& Q, const arma::mat& ALPHAS, const arma::vec& ss_old, double as0, double bs0, double ag0, double bg0);
-RcppExport SEXP dina_update_sg(SEXP YSEXP, SEXP QSEXP, SEXP ALPHASSEXP, SEXP ss_oldSEXP, SEXP as0SEXP, SEXP bs0SEXP, SEXP ag0SEXP, SEXP bg0SEXP) {
+RcppExport SEXP _dina_update_sg(SEXP YSEXP, SEXP QSEXP, SEXP ALPHASSEXP, SEXP ss_oldSEXP, SEXP as0SEXP, SEXP bs0SEXP, SEXP ag0SEXP, SEXP bg0SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -80,7 +80,7 @@ END_RCPP
 }
 // DINA_Gibbs
 Rcpp::List DINA_Gibbs(const arma::mat& Y, const arma::mat& Amat, const arma::mat& Q, unsigned int chain_length);
-RcppExport SEXP dina_DINA_Gibbs(SEXP YSEXP, SEXP AmatSEXP, SEXP QSEXP, SEXP chain_lengthSEXP) {
+RcppExport SEXP _dina_DINA_Gibbs(SEXP YSEXP, SEXP AmatSEXP, SEXP QSEXP, SEXP chain_lengthSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -91,4 +91,19 @@ BEGIN_RCPP
     rcpp_result_gen = Rcpp::wrap(DINA_Gibbs(Y, Amat, Q, chain_length));
     return rcpp_result_gen;
 END_RCPP
+}
+
+static const R_CallMethodDef CallEntries[] = {
+    {"_dina_rmultinomial", (DL_FUNC) &_dina_rmultinomial, 1},
+    {"_dina_rDirichlet", (DL_FUNC) &_dina_rDirichlet, 1},
+    {"_dina_DINAsim", (DL_FUNC) &_dina_DINAsim, 4},
+    {"_dina_update_alpha", (DL_FUNC) &_dina_update_alpha, 8},
+    {"_dina_update_sg", (DL_FUNC) &_dina_update_sg, 8},
+    {"_dina_DINA_Gibbs", (DL_FUNC) &_dina_DINA_Gibbs, 4},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_dina(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
 }

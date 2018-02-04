@@ -9,7 +9,7 @@
 #' @author Steven Andrew Culpepper
 #' @export
 rmultinomial <- function(ps) {
-    .Call('dina_rmultinomial', PACKAGE = 'dina', ps)
+    .Call(`_dina_rmultinomial`, ps)
 }
 
 #' Generate Dirichlet Random Variable
@@ -20,7 +20,7 @@ rmultinomial <- function(ps) {
 #' @author Steven Andrew Culpepper
 #' @export
 rDirichlet <- function(deltas) {
-    .Call('dina_rDirichlet', PACKAGE = 'dina', deltas)
+    .Call(`_dina_rDirichlet`, deltas)
 }
 
 #' Simulation Responses from the DINA model
@@ -99,7 +99,7 @@ rDirichlet <- function(deltas) {
 #' rownames(PIoutput) = apply(As,1,paste0,collapse='')
 #' print(PIoutput,digits=3)
 DINAsim <- function(alphas, Q, ss, gs) {
-    .Call('dina_DINAsim', PACKAGE = 'dina', alphas, Q, ss, gs)
+    .Call(`_dina_DINAsim`, alphas, Q, ss, gs)
 }
 
 #' Update attributes and latent class probabilities
@@ -118,7 +118,7 @@ DINAsim <- function(alphas, Q, ss, gs) {
 #' @author Steven Andrew Culpepper
 #' @export
 update_alpha <- function(Amat, Q, ss, gs, Y, PIs, ALPHAS, delta0) {
-    .Call('dina_update_alpha', PACKAGE = 'dina', Amat, Q, ss, gs, Y, PIs, ALPHAS, delta0)
+    .Call(`_dina_update_alpha`, Amat, Q, ss, gs, Y, PIs, ALPHAS, delta0)
 }
 
 #' Update item parameters
@@ -136,7 +136,7 @@ update_alpha <- function(Amat, Q, ss, gs, Y, PIs, ALPHAS, delta0) {
 #' @author Steven Andrew Culpepper
 #' @export
 update_sg <- function(Y, Q, ALPHAS, ss_old, as0, bs0, ag0, bg0) {
-    .Call('dina_update_sg', PACKAGE = 'dina', Y, Q, ALPHAS, ss_old, as0, bs0, ag0, bg0)
+    .Call(`_dina_update_sg`, Y, Q, ALPHAS, ss_old, as0, bs0, ag0, bg0)
 }
 
 #' Generate Posterior Distribution with Gibbs sampler
@@ -269,6 +269,6 @@ update_sg <- function(Y, Q, ALPHAS, ss_old, as0, bs0, ag0, bg0) {
 #' print(PIoutput,digits=3)
 #' }
 DINA_Gibbs <- function(Y, Amat, Q, chain_length = 10000L) {
-    .Call('dina_DINA_Gibbs', PACKAGE = 'dina', Y, Amat, Q, chain_length)
+    .Call(`_dina_DINA_Gibbs`, Y, Amat, Q, chain_length)
 }
 
