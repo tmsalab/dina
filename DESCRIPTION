@@ -1,8 +1,7 @@
 Package: dina
 Type: Package
 Title: Bayesian Estimation of DINA Model
-Version: 1.0.2
-Date: 2017-04-26
+Version: 1.0.2.1000
 Authors@R: c(person("Steven Andrew", "Culpepper", role = c("aut", "cph","cre"),
              email = "sculpepp@illinois.edu"))
 Description: Estimate the Deterministic Input, Noisy "And" Gate (DINA)
