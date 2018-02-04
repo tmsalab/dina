@@ -12,7 +12,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-[![Travis-CI Build Status](https://travis-ci.org/tmsalab/dina.svg?branch=master)](https://travis-ci.org/tmsalab/dina)[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/dina)](http://www.r-pkg.org/pkg/dina)[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/dina)](https://cran.r-project.org/package=dina)
+[![Travis-CI Build Status](https://travis-ci.org/tmsalab/dina.svg?branch=master)](https://travis-ci.org/tmsalab/dina)
+[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/dina)](http://www.r-pkg.org/pkg/dina)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/dina)](https://cran.r-project.org/package=dina)
 
 # `dina` R package
 
