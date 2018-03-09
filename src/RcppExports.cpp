@@ -6,42 +6,6 @@
 
 using namespace Rcpp;
 
-// rmultinomial
-double rmultinomial(const arma::vec& ps);
-RcppExport SEXP _dina_rmultinomial(SEXP psSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::vec& >::type ps(psSEXP);
-    rcpp_result_gen = Rcpp::wrap(rmultinomial(ps));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rDirichlet
-arma::vec rDirichlet(const arma::vec& deltas);
-RcppExport SEXP _dina_rDirichlet(SEXP deltasSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::vec& >::type deltas(deltasSEXP);
-    rcpp_result_gen = Rcpp::wrap(rDirichlet(deltas));
-    return rcpp_result_gen;
-END_RCPP
-}
-// DINAsim
-Rcpp::List DINAsim(const arma::mat& alphas, const arma::mat& Q, const arma::vec& ss, const arma::vec& gs);
-RcppExport SEXP _dina_DINAsim(SEXP alphasSEXP, SEXP QSEXP, SEXP ssSEXP, SEXP gsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::mat& >::type alphas(alphasSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type Q(QSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type ss(ssSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type gs(gsSEXP);
-    rcpp_result_gen = Rcpp::wrap(DINAsim(alphas, Q, ss, gs));
-    return rcpp_result_gen;
-END_RCPP
-}
 // update_alpha
 Rcpp::List update_alpha(const arma::mat& Amat, const arma::mat& Q, const arma::vec& ss, const arma::vec& gs, const arma::mat& Y, const arma::vec& PIs, arma::mat& ALPHAS, const arma::vec& delta0);
 RcppExport SEXP _dina_update_alpha(SEXP AmatSEXP, SEXP QSEXP, SEXP ssSEXP, SEXP gsSEXP, SEXP YSEXP, SEXP PIsSEXP, SEXP ALPHASSEXP, SEXP delta0SEXP) {
@@ -94,9 +58,6 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_dina_rmultinomial", (DL_FUNC) &_dina_rmultinomial, 1},
-    {"_dina_rDirichlet", (DL_FUNC) &_dina_rDirichlet, 1},
-    {"_dina_DINAsim", (DL_FUNC) &_dina_DINAsim, 4},
     {"_dina_update_alpha", (DL_FUNC) &_dina_update_alpha, 8},
     {"_dina_update_sg", (DL_FUNC) &_dina_update_sg, 8},
     {"_dina_DINA_Gibbs", (DL_FUNC) &_dina_DINA_Gibbs, 4},

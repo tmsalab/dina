@@ -10,7 +10,9 @@ Description: Estimate the Deterministic Input, Noisy "And" Gate (DINA)
 URL: https://github.com/tmsalab/dina
 BugReports: https://github.com/tmsalab/dina/issues
 License: GPL (>= 2)
-Imports: Rcpp (>= 0.12.10)
-LinkingTo: Rcpp (>= 0.12.10), RcppArmadillo (>= 0.7.800)
+Imports: Rcpp (>= 0.12.10), simcdm
+LinkingTo: Rcpp (>= 0.12.10), RcppArmadillo (>= 0.7.800), simcdm, rgen
+Remotes: tmsalab/simcdm
 Depends: R (>= 3.0.2)
 RoxygenNote: 6.0.1
+Roxygen: list(markdown = TRUE)
