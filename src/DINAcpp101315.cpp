@@ -154,10 +154,11 @@ Rcpp::List update_sg(const arma::mat& Y, const arma::mat& Q,
 //' @seealso [simcdm::sim_dina()] 
 //' @noRd
 // [[Rcpp::export]]
-Rcpp::List DINA_Gibbs(const arma::mat& Y, 
+Rcpp::List DINA_Gibbs_cpp(const arma::mat& Y, 
                       const arma::mat& Amat,
                       const arma::mat& Q,
-                      unsigned int chain_length = 10000){
+                      unsigned int chain_length = 10000) {
+    
   unsigned int N = Y.n_rows;
   unsigned int J = Y.n_cols;
   unsigned int K = Amat.n_cols;

@@ -63,7 +63,7 @@ update_sg <- function(Y, Q, ALPHAS, ss_old, as0, bs0, ag0, bg0) {
 #' @author Steven Andrew Culpepper
 #' @seealso [simcdm::sim_dina()] 
 #' @noRd
-DINA_Gibbs <- function(Y, Amat, Q, chain_length = 10000L) {
-    .Call(`_dina_DINA_Gibbs`, Y, Amat, Q, chain_length)
+DINA_Gibbs_cpp <- function(Y, Amat, Q, chain_length = 10000L) {
+    .Call(`_dina_DINA_Gibbs_cpp`, Y, Amat, Q, chain_length)
 }
 

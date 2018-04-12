@@ -137,7 +137,7 @@
 dina = function(Y, Amat, Q, chain_length = 10000) {
     stopifnot(is.matrix(Y) & is.matrix(Amat) & is.matrix(Q))
     
-    DINA_Gibbs(Y, Amat, Q, chain_length = chain_length)
+    DINA_Gibbs_cpp(Y, Amat, Q, chain_length = chain_length)
 }
 
 #' Deprecated functions

@@ -42,9 +42,9 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// DINA_Gibbs
-Rcpp::List DINA_Gibbs(const arma::mat& Y, const arma::mat& Amat, const arma::mat& Q, unsigned int chain_length);
-RcppExport SEXP _dina_DINA_Gibbs(SEXP YSEXP, SEXP AmatSEXP, SEXP QSEXP, SEXP chain_lengthSEXP) {
+// DINA_Gibbs_cpp
+Rcpp::List DINA_Gibbs_cpp(const arma::mat& Y, const arma::mat& Amat, const arma::mat& Q, unsigned int chain_length);
+RcppExport SEXP _dina_DINA_Gibbs_cpp(SEXP YSEXP, SEXP AmatSEXP, SEXP QSEXP, SEXP chain_lengthSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -52,7 +52,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::mat& >::type Amat(AmatSEXP);
     Rcpp::traits::input_parameter< const arma::mat& >::type Q(QSEXP);
     Rcpp::traits::input_parameter< unsigned int >::type chain_length(chain_lengthSEXP);
-    rcpp_result_gen = Rcpp::wrap(DINA_Gibbs(Y, Amat, Q, chain_length));
+    rcpp_result_gen = Rcpp::wrap(DINA_Gibbs_cpp(Y, Amat, Q, chain_length));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -60,7 +60,7 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_dina_update_alpha", (DL_FUNC) &_dina_update_alpha, 8},
     {"_dina_update_sg", (DL_FUNC) &_dina_update_sg, 8},
-    {"_dina_DINA_Gibbs", (DL_FUNC) &_dina_DINA_Gibbs, 4},
+    {"_dina_DINA_Gibbs_cpp", (DL_FUNC) &_dina_DINA_Gibbs_cpp, 4},
     {NULL, NULL, 0}
 };
 
