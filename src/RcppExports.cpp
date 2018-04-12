@@ -6,6 +6,17 @@
 
 using namespace Rcpp;
 
+// alpha_matrix
+arma::mat alpha_matrix(const arma::mat& Q);
+RcppExport SEXP _dina_alpha_matrix(SEXP QSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type Q(QSEXP);
+    rcpp_result_gen = Rcpp::wrap(alpha_matrix(Q));
+    return rcpp_result_gen;
+END_RCPP
+}
 // update_alpha
 Rcpp::List update_alpha(const arma::mat& Amat, const arma::mat& Q, const arma::vec& ss, const arma::vec& gs, const arma::mat& Y, const arma::vec& PIs, arma::mat& ALPHAS, const arma::vec& delta0);
 RcppExport SEXP _dina_update_alpha(SEXP AmatSEXP, SEXP QSEXP, SEXP ssSEXP, SEXP gsSEXP, SEXP YSEXP, SEXP PIsSEXP, SEXP ALPHASSEXP, SEXP delta0SEXP) {
@@ -43,24 +54,24 @@ BEGIN_RCPP
 END_RCPP
 }
 // DINA_Gibbs_cpp
-Rcpp::List DINA_Gibbs_cpp(const arma::mat& Y, const arma::mat& Amat, const arma::mat& Q, unsigned int chain_length);
-RcppExport SEXP _dina_DINA_Gibbs_cpp(SEXP YSEXP, SEXP AmatSEXP, SEXP QSEXP, SEXP chain_lengthSEXP) {
+Rcpp::List DINA_Gibbs_cpp(const arma::mat& Y, const arma::mat& Q, unsigned int chain_length);
+RcppExport SEXP _dina_DINA_Gibbs_cpp(SEXP YSEXP, SEXP QSEXP, SEXP chain_lengthSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const arma::mat& >::type Y(YSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type Amat(AmatSEXP);
     Rcpp::traits::input_parameter< const arma::mat& >::type Q(QSEXP);
     Rcpp::traits::input_parameter< unsigned int >::type chain_length(chain_lengthSEXP);
-    rcpp_result_gen = Rcpp::wrap(DINA_Gibbs_cpp(Y, Amat, Q, chain_length));
+    rcpp_result_gen = Rcpp::wrap(DINA_Gibbs_cpp(Y, Q, chain_length));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_dina_alpha_matrix", (DL_FUNC) &_dina_alpha_matrix, 1},
     {"_dina_update_alpha", (DL_FUNC) &_dina_update_alpha, 8},
     {"_dina_update_sg", (DL_FUNC) &_dina_update_sg, 8},
-    {"_dina_DINA_Gibbs_cpp", (DL_FUNC) &_dina_DINA_Gibbs_cpp, 4},
+    {"_dina_DINA_Gibbs_cpp", (DL_FUNC) &_dina_DINA_Gibbs_cpp, 3},
     {NULL, NULL, 0}
 };
 

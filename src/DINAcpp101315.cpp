@@ -1,6 +1,33 @@
 #include <RcppArmadillo.h>
 #include <rgen.h>
 
+arma::vec inv_bijectionvector(unsigned int K,double CL){
+    arma::vec alpha(K);
+    for(unsigned int k=0;k<K;k++){
+        double twopow = pow(2,K-k-1);
+        alpha(k) = (twopow<=CL);
+        CL = CL - twopow*alpha(k);
+    }
+    return alpha;
+}
+
+
+// Modified version of ETAMatrix
+// [[Rcpp::export]]
+arma::mat alpha_matrix(const arma::mat& Q) {
+    
+    int K = Q.n_cols;
+    
+    double nClass = pow(2, K);
+    arma::mat alpha_matrix(nClass, K);
+    
+    for(unsigned int cc = 0; cc < nClass; cc++){     
+        alpha_matrix.row(cc) = inv_bijectionvector(K, cc).t();
+    }
+    
+    return alpha_matrix;
+}
+
 //' Update attributes and latent class probabilities
 //' 
 //' Update attributes and latent class probabilities by sampling from full
@@ -155,9 +182,11 @@ Rcpp::List update_sg(const arma::mat& Y, const arma::mat& Q,
 //' @noRd
 // [[Rcpp::export]]
 Rcpp::List DINA_Gibbs_cpp(const arma::mat& Y, 
-                      const arma::mat& Amat,
                       const arma::mat& Q,
                       unsigned int chain_length = 10000) {
+    
+    
+  arma::mat Amat = alpha_matrix(Q);
     
   unsigned int N = Y.n_rows;
   unsigned int J = Y.n_cols;

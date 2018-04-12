@@ -4,12 +4,10 @@
 \alias{dina}
 \title{Generate Posterior Distribution with Gibbs sampler}
 \usage{
-dina(Y, Amat, Q, chain_length = 10000)
+dina(Y, Q, chain_length = 10000)
 }
 \arguments{
 \item{Y}{A \eqn{N \times J}{N x J} \code{matrix} of observed responses.}
-
-\item{Amat}{A \eqn{C \times K}{C x K} \code{matrix} of latent classes.}
 
 \item{Q}{A \eqn{N \times K}{N x K} \code{matrix} indicating which
 skills are required for which items.}
@@ -57,7 +55,7 @@ As_1984 = as.matrix(As_1984)
 # May take 8 minutes
 chainLength <- 5000
 burnin <- 1000
-outchain_1984 <- dina(Y = Y_1984, Amat = As_1984,
+outchain_1984 <- dina(Y = Y_1984, 
                             Q_1984, chain_length = chainLength)
                 
 # Summarize posterior samples for g and 1-s
@@ -125,7 +123,7 @@ Y_sim = sim_dina(Alphas,Q,ss,gs)
 chainLength = 200
 burnin = 100
                     
-outchain = dina(Y_sim, Amat = As, Q , chain_length=chainLength)
+outchain = dina(Y_sim, Q , chain_length=chainLength)
                         
 # Summarize posterior samples for g and 1-s  
 mGs = apply(outchain$GamS[,burnin:chainLength],1,mean)

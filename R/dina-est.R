@@ -5,7 +5,6 @@
 #' samples. Note that the output includes the posterior samples in objects.
 #' 
 #' @param Y            A \eqn{N \times J}{N x J} `matrix` of observed responses.
-#' @param Amat         A \eqn{C \times K}{C x K} `matrix` of latent classes.
 #' @param Q            A \eqn{N \times K}{N x K} `matrix` indicating which
 #'                     skills are required for which items.
 #' @param chain_length Number of MCMC iterations.
@@ -47,7 +46,7 @@
 #' # May take 8 minutes
 #' chainLength <- 5000
 #' burnin <- 1000
-#' outchain_1984 <- dina(Y = Y_1984, Amat = As_1984,
+#' outchain_1984 <- dina(Y = Y_1984, 
 #'                             Q_1984, chain_length = chainLength)
 #'                 
 #' # Summarize posterior samples for g and 1-s
@@ -115,7 +114,7 @@
 #' chainLength = 200
 #' burnin = 100
 #'                     
-#' outchain = dina(Y_sim, Amat = As, Q , chain_length=chainLength)
+#' outchain = dina(Y_sim, Q , chain_length=chainLength)
 #'                         
 #' # Summarize posterior samples for g and 1-s  
 #' mGs = apply(outchain$GamS[,burnin:chainLength],1,mean)
@@ -134,10 +133,13 @@
 #' rownames(PIoutput) = apply(As,1,paste0,collapse='')
 #' print(PIoutput,digits=3)
 #' }
-dina = function(Y, Amat, Q, chain_length = 10000) {
-    stopifnot(is.matrix(Y) & is.matrix(Amat) & is.matrix(Q))
+dina = function(Y, 
+                Q, chain_length = 10000) {
+    stopifnot(is.matrix(Y) 
+              & is.matrix(Q))
     
-    DINA_Gibbs_cpp(Y, Amat, Q, chain_length = chain_length)
+    DINA_Gibbs_cpp(Y,
+                   Q, chain_length = chain_length)
 }
 
 #' Deprecated functions
