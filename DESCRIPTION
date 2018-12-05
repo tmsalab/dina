@@ -1,7 +1,7 @@
 Package: dina
 Type: Package
 Title: Bayesian Estimation of DINA Model
-Version: 1.0.2.1000
+Version: 2.0.0
 Authors@R: c(person("Steven Andrew", "Culpepper", role = c("aut", "cph","cre"),
              email = "sculpepp@illinois.edu"))
 Description: Estimate the Deterministic Input, Noisy "And" Gate (DINA)
@@ -10,9 +10,10 @@ Description: Estimate the Deterministic Input, Noisy "And" Gate (DINA)
 URL: https://github.com/tmsalab/dina
 BugReports: https://github.com/tmsalab/dina/issues
 License: GPL (>= 2)
-Imports: Rcpp (>= 0.12.10), simcdm
-LinkingTo: Rcpp (>= 0.12.10), RcppArmadillo (>= 0.7.800), simcdm, rgen
+Imports: Rcpp (>= 1.0.0), simcdm
+LinkingTo: Rcpp (>= 1.0.0), RcppArmadillo (>= 0.9.200), simcdm, rgen
 Remotes: tmsalab/simcdm
-Depends: R (>= 3.0.2)
-RoxygenNote: 6.0.1
+Depends: R (>= 3.5.0)
+RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
+Encoding: UTF-8
