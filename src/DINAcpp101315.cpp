@@ -1,32 +1,6 @@
 #include <RcppArmadillo.h>
 #include <rgen.h>
-
-arma::vec inv_bijectionvector(unsigned int K,double CL){
-    arma::vec alpha(K);
-    for(unsigned int k=0;k<K;k++){
-        double twopow = pow(2,K-k-1);
-        alpha(k) = (twopow<=CL);
-        CL = CL - twopow*alpha(k);
-    }
-    return alpha;
-}
-
-
-// Modified version of ETAMatrix
-// [[Rcpp::export]]
-arma::mat alpha_matrix(const arma::mat& Q) {
-    
-    int K = Q.n_cols;
-    
-    double nClass = pow(2, K);
-    arma::mat alpha_matrix(nClass, K);
-    
-    for(unsigned int cc = 0; cc < nClass; cc++){     
-        alpha_matrix.row(cc) = inv_bijectionvector(K, cc).t();
-    }
-    
-    return alpha_matrix;
-}
+#include <simcdm.h>
 
 //' Update attributes and latent class probabilities
 //' 
@@ -178,27 +152,35 @@ Rcpp::List update_sg(const arma::mat& Y, const arma::mat& Q,
 //' - `GamS` = item guessing parameters.
 //' 
 //' @author Steven Andrew Culpepper
-//' @seealso [simcdm::sim_dina()] 
+//' @seealso [simcdm::sim_dina_items()], [simcdm::sim_alpha_matrix()]
 //' @noRd
 // [[Rcpp::export]]
 Rcpp::List DINA_Gibbs_cpp(const arma::mat& Y, 
                       const arma::mat& Q,
                       unsigned int chain_length = 10000) {
     
-    
-  arma::mat Amat = alpha_matrix(Q);
-    
+  // Number of Observations
   unsigned int N = Y.n_rows;
-  unsigned int J = Y.n_cols;
-  unsigned int K = Amat.n_cols;
-  unsigned int C = Amat.n_rows;
   
-  //Prior values for betas and Dirichlet distribution
+  // Number of Items
+  unsigned int J = Y.n_cols;
+  
+  // Number of Attributes
+  unsigned int K = Q.n_cols;
+  
+  // Number of Latent Classes (2^k)
+  unsigned int C = pow(2, K);
+
+  // Generate the latent class alpha matrix  
+  arma::mat Amat = simcdm::sim_alpha_matrix(K);
+
+  // Prior values for betas and Dirichlet distribution
   arma::vec delta0 = arma::ones<arma::vec>(C);
   double as0=1.0;
   double bs0=1.0;
   double ag0=1.0;
   double bg0=1.0;
+  
   arma::vec pil0=arma::ones<arma::vec>(C)/double(C);//prior probability
 
   //Savinging output
