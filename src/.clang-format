@@ -1,0 +1,26 @@
+
+################################################################################
+# James Joseph Balamuta
+# balamut2@illinois.edu
+################################################################################
+# All cpp files should be formatted according to the style rules
+# enforced by this file using clang-format.
+#
+# Official style options documentation:
+# https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+# Style options with interactive examples:
+# https://clangformat.com/
+################################################################################
+### Example use
+# shopt -s extglob
+# clang-format -i -style=file src/!(RcppExports).@(c|h|cpp) 
+#
+################################################################################
+BasedOnStyle: LLVM
+IndentWidth: 4
+AlignTrailingComments: true
+UseTab: Never
+BreakBeforeBraces: Linux
+AllowShortIfStatementsOnASingleLine: false
+IndentCaseLabels: false
+
