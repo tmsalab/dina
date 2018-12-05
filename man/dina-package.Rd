@@ -22,4 +22,9 @@ Useful links:
 \author{
 \strong{Maintainer}: Steven Andrew Culpepper \email{sculpepp@illinois.edu} [copyright holder]
 
+Authors:
+\itemize{
+  \item James Joseph Balamuta \email{balamut2@illinois.edu}
+}
+
 }
