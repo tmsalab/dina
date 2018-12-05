@@ -3,7 +3,8 @@
 \docType{import}
 \name{reexports}
 \alias{reexports}
-\alias{sim_dina}
+\alias{sim_dina_items}
+\alias{sim_alpha_matrix}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -11,6 +12,6 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{simcdm}{\code{\link[simcdm]{sim_dina}}}
+  \item{simcdm}{\code{\link[simcdm]{sim_dina_items}}, \code{\link[simcdm]{sim_alpha_matrix}}}
 }}
 
