@@ -18,7 +18,7 @@
 #' - `GamS` = item guessing parameters.
 #' 
 #' @author Steven Andrew Culpepper
-#' @seealso [simcdm::sim_dina()]
+#' @seealso [simcdm::sim_dina_items()], [simcdm::sim_alpha_matrix()]
 #' @export
 #' @examples
 #' \dontrun{
@@ -106,7 +106,7 @@
 #' Alphas = As[CLs,]
 #'                 
 #' # Simulate data under DINA model 
-#' Y_sim = sim_dina(Alphas,Q,ss,gs)
+#' Y_sim = sim_dina_items(Alphas, Q, ss, gs)
 #'                     
 #' # Execute MCMC
 #' # NOTE small chain length used to reduce computation time for

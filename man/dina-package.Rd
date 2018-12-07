@@ -8,8 +8,8 @@
 \title{dina: Bayesian Estimation of DINA Model}
 \description{
 Estimate the Deterministic Input, Noisy "And" Gate (DINA)
-cognitive diagnostic model parameters using the Gibbs sampler described
-by Culpepper (2015) <doi:10.3102/1076998615595403>.
+    cognitive diagnostic model parameters using the Gibbs sampler described
+    by Culpepper (2015) <doi:10.3102/1076998615595403>.
 }
 \seealso{
 Useful links:
@@ -21,5 +21,10 @@ Useful links:
 }
 \author{
 \strong{Maintainer}: Steven Andrew Culpepper \email{sculpepp@illinois.edu} [copyright holder]
+
+Authors:
+\itemize{
+  \item James Joseph Balamuta \email{balamut2@illinois.edu}
+}
 
 }

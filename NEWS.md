@@ -1,5 +1,17 @@
-# dina 1.0.2.1000
+# dina 2.0.0
 
+## API Breakage
+
+- Deprecated `DINA_Gibbs()` in favor of `dina()`, which generates the correct
+  alpha matrix (`Amat`) inside of the function instead of relying on the user
+  to set it up.
+- The call to estimate with the gibbs sampling technique is now: `dina(Y, Q, chain_length)`
+
+## Changes
+
+- Switched internal portions of the package to use the `simcdm` _C++_ routines
+  and imported _R_ level-routines.
+- Enabled markdown for inline documentiona with roxygen2.
 - Switched from `src/init.c` to autogeneration via Rcpp 0.12.15
 - Removed miscellaneous RNG seed. 
 

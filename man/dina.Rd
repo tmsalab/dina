@@ -115,7 +115,7 @@ As = as.matrix(As)
 Alphas = As[CLs,]
                 
 # Simulate data under DINA model 
-Y_sim = sim_dina(Alphas,Q,ss,gs)
+Y_sim = sim_dina_items(Alphas, Q, ss, gs)
                     
 # Execute MCMC
 # NOTE small chain length used to reduce computation time for
@@ -144,7 +144,7 @@ print(PIoutput,digits=3)
 }
 }
 \seealso{
-\code{\link[simcdm:sim_dina]{simcdm::sim_dina()}}
+\code{\link[simcdm:sim_dina_items]{simcdm::sim_dina_items()}}, \code{\link[simcdm:sim_alpha_matrix]{simcdm::sim_alpha_matrix()}}
 }
 \author{
 Steven Andrew Culpepper
