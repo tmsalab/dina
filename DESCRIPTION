@@ -4,7 +4,7 @@ Title: Bayesian Estimation of DINA Model
 Version: 2.0.0
 Authors@R: c(person("Steven Andrew", "Culpepper", role = c("aut", "cph", "cre"),
              email = "sculpepp@illinois.edu"),
-             person("James Joseph", "Balamuta", role = "aut",
+             person("James Joseph", "Balamuta", role = c("aut"),
              email = "balamut2@illinois.edu")
              )
 Description: Estimate the Deterministic Input, Noisy "And" Gate (DINA)

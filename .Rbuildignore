@@ -5,3 +5,6 @@
 ^\.travis\.yml$
 ^cran-comments\.md$
 ^src/\.clang-format$
+^dina\.Rcheck$
+^dina.*\.tar\.gz$
+^dina.*\.tgz$
