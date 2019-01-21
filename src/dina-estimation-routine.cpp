@@ -198,7 +198,7 @@ Rcpp::List DINA_Gibbs_cpp(const arma::mat& Y,
   
   arma::vec pil0=arma::ones<arma::vec>(C)/double(C);//prior probability
 
-  //Savinging output
+  // Saving output
   arma::mat SigS(J,chain_length);
   arma::mat GamS(J,chain_length);
   arma::mat US(J,chain_length);
@@ -206,8 +206,8 @@ Rcpp::List DINA_Gibbs_cpp(const arma::mat& Y,
   arma::mat CLASSES(N,chain_length);
   arma::cube QS(J,K,chain_length);
 
-  //need to initialize, alphas, ss, gs,pis 
-//  arma::mat alphas = arma::zeros<arma::mat>(N,K); //K>1 is assumed
+  // Need to initialize, alphas, ss, gs, and pis 
+  //  arma::mat alphas = arma::zeros<arma::mat>(N,K); //K>1 is assumed
   arma::mat alphas = arma::randu<arma::mat>(N,K); //K>1 is assumed   
   alphas.elem( find(alphas > 0.5) ).ones();
   alphas.elem( find(alphas <= 0.5) ).zeros();
