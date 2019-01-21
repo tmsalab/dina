@@ -2,9 +2,9 @@
 
 export(DINA_Gibbs)
 export(dina)
-export(sim_alpha_matrix)
+export(sim_attribute_classes)
 export(sim_dina_items)
 importFrom(Rcpp,evalCpp)
-importFrom(simcdm,sim_alpha_matrix)
+importFrom(simcdm,sim_attribute_classes)
 importFrom(simcdm,sim_dina_items)
 useDynLib("dina", .registration=TRUE)
