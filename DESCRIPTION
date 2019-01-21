@@ -2,11 +2,16 @@ Package: dina
 Type: Package
 Title: Bayesian Estimation of DINA Model
 Version: 2.0.0
-Authors@R: c(person("Steven Andrew", "Culpepper", role = c("aut", "cph", "cre"),
-             email = "sculpepp@illinois.edu"),
-             person("James Joseph", "Balamuta", role = c("aut"),
-             email = "balamut2@illinois.edu")
-             )
+Authors@R: c(person("Steven Andrew", "Culpepper", 
+                    email = "sculpepp@illinois.edu",
+                    role = c("aut", "cph"),
+                    comment = c(ORCID = "0000-0003-4226-6176")
+                    ),
+             person("James Joseph", "Balamuta", 
+                    email = "balamut2@illinois.edu",
+                    role = c("aut", "cre"),
+                    comment = c(ORCID = "0000-0003-2826-8458"))
+            )
 Description: Estimate the Deterministic Input, Noisy "And" Gate (DINA)
     cognitive diagnostic model parameters using the Gibbs sampler described
     by Culpepper (2015) <doi:10.3102/1076998615595403>.
