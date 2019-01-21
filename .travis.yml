@@ -24,3 +24,7 @@ jobs:
 # If one fails, avoid running the other.
 matrix:
   fast_finish: true
+
+# Enable coverage check on unit tests
+after_success:
+    - Rscript -e 'covr::codecov()'
