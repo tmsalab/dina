@@ -6,6 +6,7 @@
 //' 
 //' Update attributes and latent class probabilities by sampling from full
 //' conditional distribution. 
+//' 
 //' @param Amat   A \eqn{C \times K}{C x K} \code{matrix} of latent classes.
 //' @param Q      A \eqn{N \times K}{N x K} \code{matrix} indicating which
 //'               skills are required for which items.
@@ -15,9 +16,14 @@
 //' @param PIs    A \eqn{C} \code{vector} of latent class probabilities.
 //' @param ALPHAS A \eqn{N \times K}{N x K} \code{matrix} of latent attributes.
 //' @param delta0 A \eqn{J} `vector` of Dirichlet prior parameters.
-//' @return A \eqn{N \times K}{N x K} `matrix` of attributes and a C `vector` of
-//'  class probabilities.
-//' @author Steven Andrew Culpepper
+//' 
+//' @return 
+//' A \eqn{N \times K}{N x K} `matrix` of attributes and a C `vector` of
+//' class probabilities.
+//' 
+//' @author 
+//' Steven Andrew Culpepper
+//' 
 //' @noRd
 // [[Rcpp::export]]
 Rcpp::List update_alpha(const arma::mat& Amat, const arma::mat& Q,
@@ -78,6 +84,7 @@ Rcpp::List update_alpha(const arma::mat& Amat, const arma::mat& Q,
 //' Update item parameters
 //' 
 //' Update guessing and slipping parameters from full conditional distribution. 
+//' 
 //' @param Y A N by J `matrix` of observed responses.
 //' @param Q A N by K `matrix` indicating which skills are required for which items.
 //' @param ALPHAS A N by K `matrix` of latent attributes.
@@ -86,7 +93,10 @@ Rcpp::List update_alpha(const arma::mat& Amat, const arma::mat& Q,
 //' @param bs0 Slipping prior beta parameter for Beta distribution.
 //' @param ag0 Guessing prior alpha parameter for Beta distribution.
 //' @param bg0 Guessing prior beta parameter for Beta distribution.
-//' @return A list with two J `vectors` of guessing and slipping parameters.
+//' 
+//' @return 
+//' A `list` with two J `vectors` of guessing and slipping parameters.
+//' 
 //' @author Steven Andrew Culpepper
 //' @noRd
 // [[Rcpp::export]]
@@ -143,7 +153,8 @@ Rcpp::List update_sg(const arma::mat& Y, const arma::mat& Q,
 //'                     skills are required for which items.
 //' @param chain_length Number of MCMC iterations.
 //' 
-//' @return A list with samples from the posterior distribution with each
+//' @return 
+//' A `list` with samples from the posterior distribution with each
 //' entry named:
 //' 
 //' - `CLASSES` = individual attribute profiles,
@@ -151,8 +162,12 @@ Rcpp::List update_sg(const arma::mat& Y, const arma::mat& Q,
 //' - `SigS` = item slipping parameters, and 
 //' - `GamS` = item guessing parameters.
 //' 
-//' @author Steven Andrew Culpepper
-//' @seealso [simcdm::sim_dina_items()], [simcdm::sim_alpha_matrix()]
+//' @author 
+//' Steven Andrew Culpepper
+//' 
+//' @seealso 
+//' [simcdm::sim_dina_items()] and [simcdm::sim_attribute_classes()]
+//' 
 //' @noRd
 // [[Rcpp::export]]
 Rcpp::List DINA_Gibbs_cpp(const arma::mat& Y, 
@@ -172,7 +187,7 @@ Rcpp::List DINA_Gibbs_cpp(const arma::mat& Y,
   unsigned int C = pow(2, K);
 
   // Generate the latent class alpha matrix  
-  arma::mat Amat = simcdm::sim_alpha_matrix(K);
+  arma::mat Amat = simcdm::sim_attribute_classes(K);
 
   // Prior values for betas and Dirichlet distribution
   arma::vec delta0 = arma::ones<arma::vec>(C);
