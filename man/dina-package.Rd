@@ -4,7 +4,6 @@
 \name{dina-package}
 \alias{dina-package}
 \alias{_PACKAGE}
-\alias{dina-pkg}
 \title{dina: Bayesian Estimation of DINA Model}
 \description{
 Estimate the Deterministic Input, Noisy "And" Gate (DINA)
@@ -20,11 +19,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Steven Andrew Culpepper \email{sculpepp@illinois.edu} [copyright holder]
+\strong{Maintainer}: James Joseph Balamuta \email{balamut2@illinois.edu} (0000-0003-2826-8458)
 
 Authors:
 \itemize{
-  \item James Joseph Balamuta \email{balamut2@illinois.edu}
+  \item Steven Andrew Culpepper \email{sculpepp@illinois.edu} (0000-0003-4226-6176) [copyright holder]
 }
 
 }
