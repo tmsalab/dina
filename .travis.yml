@@ -1,3 +1,5 @@
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+
 ###### Default build via devtools::use_travis()
 
 language: r
@@ -11,4 +13,18 @@ cache: packages
 env:
   global:
   - MAKEFLAGS="-j 2"
-  - _R_CHECK_FORCE_SUGGESTS
+  - _R_CHECK_FORCE_SUGGESTS_=false
+
+# Run R package on both release and developer versions
+jobs:
+  include:
+  - r: release
+  - r: devel
+
+# If one fails, avoid running the other.
+matrix:
+  fast_finish: true
+
+# Enable coverage check on unit tests
+after_success:
+    - Rscript -e 'covr::codecov()'

@@ -1,16 +1,29 @@
-citHeader("To cite package dina in publications use:")
+citHeader("To cite the 'dina' package in publications use:")
 
-citEntry(entry="Article",
-      title = "Bayesian estimation of the DINA model with Gibbs sampling",
-      author = personList(as.person("Steven Andrew Culpepper")),
-	  journal = "Journal of Educational and Behavioral Statistics",
-      year = "2015",
-      url = "http://www.hermanaguinis.com/pubs.html",
-      pdf = "http://www.hermanaguinis.com/ORM2015.pdf",
-      volume = "40",
-      number = "5",
-      pages = "454-476",
-      year = "2015",
-      doi = "10.3102/1076998615595403", 
-      textVersion = "Culpepper, S. A. (2015). Bayesian estimation of the DINA model with Gibbs sampling. Journal of Educational and Behavioral Statistics, 40, 454-476. DOI: 10.3102/1076998615595403.")
+citEntry(entry = "Manual",
+         title        = "{dina: Bayesian Estimation of DINA Model}",
+         author       = personList(as.person("Steven Andrew Culpepper"),
+                                   as.person("James Joseph Balamuta")
+                                  ),
+         year         = 2019,
+         textVersion  = paste("Culpepper, S.A. and Balamuta, J.J. (2019)",
+                              "dina: Bayesian Estimation of DINA Model.",
+                              "URL https://cran.r-project.org/package=dina.")
+)
+
+citEntry(entry   = "Article",
+         title   = "{Bayesian Estimation of the DINA Model With Gibbs Sampling}",
+         author  = personList(as.person("Steven Andrew Culpepper")),
+	      journal = "Journal of Educational and Behavioral Statistics",
+         year    = "2015",
+         url     = "https://doi.org/10.3102/1076998615595403",
+         volume  = "40",
+         number  = "5",
+         pages   = "454-476",
+         doi     = "10.3102/1076998615595403", 
+         textVersion = paste("Culpepper, S. A. (2015).",
+                             "Bayesian Estimation of the DINA Model With Gibbs Sampling.",
+                             "Journal of Educational and Behavioral Statistics. 40, 454-476.",
+                             "DOI: 10.3102/1076998615595403.")
+)
 

@@ -1,14 +1,5 @@
 #' @useDynLib "dina", .registration=TRUE
 #' @importFrom Rcpp evalCpp
-#' @aliases dina-pkg
+#' @importFrom simcdm sim_dina_items sim_attribute_classes sim_q_matrix sim_subject_attributes
+#' @aliases dina-package
 "_PACKAGE"
-
-# -------- Model Simulation
-
-#' @importFrom simcdm sim_dina_items
-#' @export
-simcdm::sim_dina_items
-
-#' @importFrom simcdm sim_alpha_matrix
-#' @export
-simcdm::sim_alpha_matrix

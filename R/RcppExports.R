@@ -2,38 +2,49 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 #' Update attributes and latent class probabilities
-#' 
+#'
 #' Update attributes and latent class probabilities by sampling from full
-#' conditional distribution. 
-#' @param Amat   A \eqn{C \times K}{C x K} \code{matrix} of latent classes.
-#' @param Q      A \eqn{N \times K}{N x K} \code{matrix} indicating which
+#' conditional distribution.
+#'
+#' @param Amat   A \eqn{C \times K}{C x K} `matrix` of latent classes.
+#' @param Q      A \eqn{N \times K}{N x K} `matrix` indicating which
 #'               skills are required for which items.
 #' @param ss     A \eqn{J} \code{vector} of item slipping parameters.
 #' @param gs     A \eqn{J} \code{vector} of item guessing parameters.
-#' @param Y      A \eqn{N \times J}{N x J} \code{matrix} of observed responses.
+#' @param Y      A \eqn{N \times J}{N x J} `matrix` of observed responses.
 #' @param PIs    A \eqn{C} \code{vector} of latent class probabilities.
-#' @param ALPHAS A \eqn{N \times K}{N x K} \code{matrix} of latent attributes.
+#' @param ALPHAS A \eqn{N \times K}{N x K} `matrix` of latent attributes.
 #' @param delta0 A \eqn{J} `vector` of Dirichlet prior parameters.
-#' @return A \eqn{N \times K}{N x K} `matrix` of attributes and a C `vector` of
-#'  class probabilities.
-#' @author Steven Andrew Culpepper
+#'
+#' @return
+#' A \eqn{N \times K}{N x K} `matrix` of attributes and a C `vector` of
+#' class probabilities.
+#'
+#' @author
+#' Steven Andrew Culpepper
+#'
 #' @noRd
 update_alpha <- function(Amat, Q, ss, gs, Y, PIs, ALPHAS, delta0) {
     .Call(`_dina_update_alpha`, Amat, Q, ss, gs, Y, PIs, ALPHAS, delta0)
 }
 
 #' Update item parameters
-#' 
-#' Update guessing and slipping parameters from full conditional distribution. 
-#' @param Y A N by J `matrix` of observed responses.
-#' @param Q A N by K `matrix` indicating which skills are required for which items.
-#' @param ALPHAS A N by K `matrix` of latent attributes.
+#'
+#' Update guessing and slipping parameters from full conditional distribution.
+#'
+#' @param Y      A N by J `matrix` of observed responses.
+#' @param Q      A N by K `matrix` indicating which skills are required 
+#'               for which items. 
+#' @param ALPHAS A N by K `matrix` of latent attributes. 
 #' @param ss_old A J `vector` of item slipping parameters from prior iteration.
-#' @param as0 Slipping prior alpha parameter for Beta distribution.
-#' @param bs0 Slipping prior beta parameter for Beta distribution.
-#' @param ag0 Guessing prior alpha parameter for Beta distribution.
-#' @param bg0 Guessing prior beta parameter for Beta distribution.
-#' @return A list with two J `vectors` of guessing and slipping parameters.
+#' @param as0    Slipping prior alpha parameter for Beta distribution.
+#' @param bs0    Slipping prior beta parameter for Beta distribution. 
+#' @param ag0    Guessing prior alpha parameter for Beta distribution. 
+#' @param bg0    Guessing prior beta parameter for Beta distribution.
+#'
+#' @return
+#' A `list` with two J `vectors` of guessing and slipping parameters.
+#'
 #' @author Steven Andrew Culpepper
 #' @noRd
 update_sg <- function(Y, Q, ALPHAS, ss_old, as0, bs0, ag0, bg0) {
@@ -41,27 +52,34 @@ update_sg <- function(Y, Q, ALPHAS, ss_old, as0, bs0, ag0, bg0) {
 }
 
 #' Generate Posterior Distribution with Gibbs sampler
-#' 
+#'
 #' Function for sampling parameters from full conditional distributions.
 #' The function returns a list of arrays or matrices with parameter posterior
 #' samples. Note that the output includes the posterior samples in objects.
-#' 
-#' @param Y            A \eqn{N \times J}{N x J} `matrix` of observed responses.
-#' @param Amat         A \eqn{C \times K}{C x K} `matrix` of latent classes.
-#' @param Q            A \eqn{N \times K}{N x K} `matrix` indicating which
-#'                     skills are required for which items.
+#'
+#' @param Y            A \eqn{N \times J}{N x J} `matrix` of observed
+#'                     responses. 
+#' @param Amat         A \eqn{C \times K}{C x K} `matrix` of latent
+#'                     classes. 
+#' @param Q            A \eqn{N \times K}{N x K} `matrix` indicating
+#'                     which skills are required for which items. 
 #' @param chain_length Number of MCMC iterations.
-#' 
-#' @return A list with samples from the posterior distribution with each
+#'
+#' @return
+#' A `list` with samples from the posterior distribution with each
 #' entry named:
-#' 
+#'
 #' - `CLASSES` = individual attribute profiles,
 #' - `PIs` = latent class proportions,
-#' - `SigS` = item slipping parameters, and 
+#' - `SigS` = item slipping parameters, and
 #' - `GamS` = item guessing parameters.
-#' 
-#' @author Steven Andrew Culpepper
-#' @seealso [simcdm::sim_dina_items()], [simcdm::sim_alpha_matrix()]
+#'
+#' @author
+#' Steven Andrew Culpepper
+#'
+#' @seealso
+#' [simcdm::sim_dina_items()] and [simcdm::sim_attribute_classes()]
+#'
 #' @noRd
 DINA_Gibbs_cpp <- function(Y, Q, chain_length = 10000L) {
     .Call(`_dina_DINA_Gibbs_cpp`, Y, Q, chain_length)
