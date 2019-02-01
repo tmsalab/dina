@@ -186,7 +186,7 @@ Rcpp::List DINA_Gibbs_cpp(const arma::mat &Y, const arma::mat &Q,
     unsigned int K = Q.n_cols;
 
     // Number of Latent Classes (2^k)
-    unsigned int C = pow(2, K);
+    unsigned int C = static_cast<unsigned int>(pow(2.0, static_cast<double>(K)));
 
     // Generate the latent class alpha matrix
     arma::mat Amat = simcdm::sim_attribute_classes(K);
