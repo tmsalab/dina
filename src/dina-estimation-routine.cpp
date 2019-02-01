@@ -168,7 +168,7 @@ Rcpp::List update_sg(const arma::mat &Y, const arma::mat &Q,
 //' Steven Andrew Culpepper
 //'
 //' @seealso
-//' [simcdm::sim_dina_items()] and [simcdm::sim_attribute_classes()]
+//' [simcdm::sim_dina_items()] and [simcdm::attribute_classes()]
 //'
 //' @noRd
 // [[Rcpp::export]]
@@ -189,7 +189,7 @@ Rcpp::List DINA_Gibbs_cpp(const arma::mat &Y, const arma::mat &Q,
     unsigned int C = static_cast<unsigned int>(pow(2.0, static_cast<double>(K)));
 
     // Generate the latent class alpha matrix
-    arma::mat Amat = simcdm::sim_attribute_classes(K);
+    arma::mat Amat = simcdm::attribute_classes(K);
 
     // Prior values for betas and Dirichlet distribution
     arma::vec delta0 = arma::ones<arma::vec>(C);
