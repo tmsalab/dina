@@ -166,7 +166,7 @@ print(PIoutput, digits = 3)
 }
 }
 \seealso{
-\code{\link[simcdm:sim_dina_items]{simcdm::sim_dina_items()}} and \code{\link[simcdm:sim_attribute_classes]{simcdm::sim_attribute_classes()}}
+\code{\link[simcdm:sim_dina_items]{simcdm::sim_dina_items()}} and \code{\link[simcdm:attribute_classes]{simcdm::attribute_classes()}}
 }
 \author{
 Steven Andrew Culpepper and James Joseph Balamuta

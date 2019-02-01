@@ -10,10 +10,10 @@
 //' @param Amat   A \eqn{C \times K}{C x K} `matrix` of latent classes.
 //' @param Q      A \eqn{N \times K}{N x K} `matrix` indicating which
 //'               skills are required for which items.
-//' @param ss     A \eqn{J} \code{vector} of item slipping parameters.
-//' @param gs     A \eqn{J} \code{vector} of item guessing parameters.
+//' @param ss     A \eqn{J} `vector` of item slipping parameters.
+//' @param gs     A \eqn{J} `vector` of item guessing parameters.
 //' @param Y      A \eqn{N \times J}{N x J} `matrix` of observed responses.
-//' @param PIs    A \eqn{C} \code{vector} of latent class probabilities.
+//' @param PIs    A \eqn{C} `vector` of latent class probabilities.
 //' @param ALPHAS A \eqn{N \times K}{N x K} `matrix` of latent attributes.
 //' @param delta0 A \eqn{J} `vector` of Dirichlet prior parameters.
 //'
@@ -168,7 +168,7 @@ Rcpp::List update_sg(const arma::mat &Y, const arma::mat &Q,
 //' Steven Andrew Culpepper
 //'
 //' @seealso
-//' [simcdm::sim_dina_items()] and [simcdm::sim_attribute_classes()]
+//' [simcdm::sim_dina_items()] and [simcdm::attribute_classes()]
 //'
 //' @noRd
 // [[Rcpp::export]]
@@ -186,10 +186,10 @@ Rcpp::List DINA_Gibbs_cpp(const arma::mat &Y, const arma::mat &Q,
     unsigned int K = Q.n_cols;
 
     // Number of Latent Classes (2^k)
-    unsigned int C = pow(2, K);
+    unsigned int C = static_cast<unsigned int>(pow(2.0, static_cast<double>(K)));
 
     // Generate the latent class alpha matrix
-    arma::mat Amat = simcdm::sim_attribute_classes(K);
+    arma::mat Amat = simcdm::attribute_classes(K);
 
     // Prior values for betas and Dirichlet distribution
     arma::vec delta0 = arma::ones<arma::vec>(C);

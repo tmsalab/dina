@@ -9,10 +9,10 @@
 #' @param Amat   A \eqn{C \times K}{C x K} `matrix` of latent classes.
 #' @param Q      A \eqn{N \times K}{N x K} `matrix` indicating which
 #'               skills are required for which items.
-#' @param ss     A \eqn{J} \code{vector} of item slipping parameters.
-#' @param gs     A \eqn{J} \code{vector} of item guessing parameters.
+#' @param ss     A \eqn{J} `vector` of item slipping parameters.
+#' @param gs     A \eqn{J} `vector` of item guessing parameters.
 #' @param Y      A \eqn{N \times J}{N x J} `matrix` of observed responses.
-#' @param PIs    A \eqn{C} \code{vector} of latent class probabilities.
+#' @param PIs    A \eqn{C} `vector` of latent class probabilities.
 #' @param ALPHAS A \eqn{N \times K}{N x K} `matrix` of latent attributes.
 #' @param delta0 A \eqn{J} `vector` of Dirichlet prior parameters.
 #'
@@ -78,7 +78,7 @@ update_sg <- function(Y, Q, ALPHAS, ss_old, as0, bs0, ag0, bg0) {
 #' Steven Andrew Culpepper
 #'
 #' @seealso
-#' [simcdm::sim_dina_items()] and [simcdm::sim_attribute_classes()]
+#' [simcdm::sim_dina_items()] and [simcdm::attribute_classes()]
 #'
 #' @noRd
 DINA_Gibbs_cpp <- function(Y, Q, chain_length = 10000L) {
