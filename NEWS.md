@@ -11,9 +11,19 @@
 
 - Switched internal portions of the package to use the `simcdm` _C++_ routines
   and imported _R_ level-routines.
-- Enabled markdown for inline documentiona with roxygen2.
 - Switched from `src/init.c` to autogeneration via Rcpp 0.12.15
 - Removed miscellaneous RNG seed. 
+
+## Documentation
+
+- Enabled markdown for inline documentiona with roxygen2.
+- Improved documentation flow
+
+## Deployment
+
+- Added TMSA Lab's Travis-CI configuration for testing across R versions.
+- Added Unit Tests for model reproducibility.
+- Added code coverage results.
 
 # dina 1.0.2
 
