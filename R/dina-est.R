@@ -22,7 +22,7 @@
 #' Steven Andrew Culpepper and James Joseph Balamuta
 #' 
 #' @seealso 
-#' [simcdm::sim_dina_items()] and [simcdm::sim_attribute_classes()]
+#' [simcdm::sim_dina_items()] and [simcdm::attribute_classes()]
 #' 
 #' @export
 #' @examples
