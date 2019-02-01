@@ -1,4 +1,4 @@
-citHeader("To cite the 'dina' package in publications use:")
+citHeader("To cite the 'dina' R package and methods paper in publications use:")
 
 citEntry(entry = "Manual",
          title        = "{dina: Bayesian Estimation of DINA Model}",
@@ -6,7 +6,7 @@ citEntry(entry = "Manual",
                                    as.person("James Joseph Balamuta")
                                   ),
          year         = 2019,
-         textVersion  = paste("Culpepper, S.A. and Balamuta, J.J. (2019)",
+         textVersion  = paste("Culpepper, S. A. and Balamuta, J. J. (2019)",
                               "dina: Bayesian Estimation of DINA Model.",
                               "URL https://cran.r-project.org/package=dina.")
 )
