@@ -20,6 +20,7 @@ jobs:
   include:
   - r: release
   - r: devel
+  - r: oldrel
 
 # If one fails, avoid running the other.
 matrix:
