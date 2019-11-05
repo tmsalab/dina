@@ -8,3 +8,4 @@ src/*.dll
 dina.Rcheck/
 dina*.tar.gz
 dina*.tgz
+docs/

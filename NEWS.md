@@ -1,3 +1,9 @@
+# dina 2.0.0.9000
+
+## Documentation
+
+- Added a `pkgdown` website that deploys to <http://tmsalab.github.io/dina>.
+
 # dina 2.0.0
 
 ## API Breakage
