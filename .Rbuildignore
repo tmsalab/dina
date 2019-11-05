@@ -9,3 +9,6 @@
 ^dina\.Rcheck$
 ^dina.*\.tar\.gz$
 ^dina.*\.tgz$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
