@@ -75,7 +75,7 @@
 #'                     
 #' # Summarize marginal skill distribution using posterior samples for latent
 #' # class proportions
-#' marg_PIs = t(As_1984) \%*\% outchain_1984$PIs
+#' marg_PIs = t(As_1984) %*% outchain_1984$PIs
 #' PI_Est = apply(marg_PIs[, chain_samples], 1, mean)
 #' PI_Sd = apply(marg_PIs[, chain_samples], 1, sd)
 #' PIoutput = cbind(PI_Est, PI_Sd)
@@ -108,7 +108,7 @@
 #' # Setting item parameters and generating attribute profiles
 #' ss = gs = rep(.2, J)
 #' PIs = rep(1/(2^K), 2^K)
-#' CLs = c(1:(2^K)) \%*\% rmultinom(n = N, size = 1, prob = PIs) )
+#' CLs = c(1:(2^K)) %*% rmultinom(n = N, size = 1, prob = PIs)
 #'         
 #' # Defining matrix of possible attribute profiles
 #' As = rep(0,K)
