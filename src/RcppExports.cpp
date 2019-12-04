@@ -55,11 +55,25 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// dina_cpp_class
+Rcpp::List dina_cpp_class(const arma::mat& Y, const arma::mat& Q, unsigned int chain_length);
+RcppExport SEXP _dina_dina_cpp_class(SEXP YSEXP, SEXP QSEXP, SEXP chain_lengthSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type Y(YSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type Q(QSEXP);
+    Rcpp::traits::input_parameter< unsigned int >::type chain_length(chain_lengthSEXP);
+    rcpp_result_gen = Rcpp::wrap(dina_cpp_class(Y, Q, chain_length));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_dina_update_alpha", (DL_FUNC) &_dina_update_alpha, 8},
     {"_dina_update_sg", (DL_FUNC) &_dina_update_sg, 8},
     {"_dina_DINA_Gibbs_cpp", (DL_FUNC) &_dina_DINA_Gibbs_cpp, 3},
+    {"_dina_dina_cpp_class", (DL_FUNC) &_dina_dina_cpp_class, 3},
     {NULL, NULL, 0}
 };
 
