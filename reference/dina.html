@@ -166,7 +166,140 @@ entry named:</p><ul>
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/simcdm/man/sim_dina_items.html'>simcdm::sim_dina_items()</a></code> and <code><a href='https://rdrr.io/pkg/simcdm/man/attribute_classes.html'>simcdm::attribute_classes()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+
+<span class='co'>####################################</span>
+<span class='co'># Tatsuoka Fraction Subtraction Data</span>
+<span class='co'>####################################</span>
+
+<span class='co'># This example requires data from the CDM package.</span>
+<span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"CDM"</span>)) {
+
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>fraction.subtraction.data</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"CDM"</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>fraction.subtraction.qmatrix</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"CDM"</span>)
+<span class='no'>Y_1984</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>fraction.subtraction.data</span>)
+<span class='no'>Q_1984</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>fraction.subtraction.qmatrix</span>)
+<span class='no'>K_1984</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>fraction.subtraction.qmatrix</span>)
+<span class='no'>J_1984</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>Y_1984</span>)
+
+<span class='co'># Creating matrix of possible attribute profiles</span>
+<span class='no'>As_1984</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0</span>, <span class='no'>K_1984</span>)
+
+<span class='kw'>for</span>(<span class='no'>j</span> <span class='kw'>in</span> <span class='fl'>1</span>:<span class='no'>K_1984</span>) {
+    <span class='no'>temp</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/utils/combn.html'>combn</a></span>(<span class='fl'>1</span>:<span class='no'>K_1984</span>, <span class='kw'>m</span> <span class='kw'>=</span> <span class='no'>j</span>)
+    <span class='no'>tempmat</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>0</span>, <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>temp</span>), <span class='no'>K_1984</span>)
+    <span class='kw'>for</span>(<span class='no'>j</span> <span class='kw'>in</span> <span class='fl'>1</span>:<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>temp</span>)) <span class='no'>tempmat</span>[<span class='no'>j</span>, <span class='no'>temp</span>[, <span class='no'>j</span>]] <span class='kw'>=</span> <span class='fl'>1</span>
+    <span class='no'>As_1984</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='no'>As_1984</span>, <span class='no'>tempmat</span>)
+}
+
+<span class='no'>As_1984</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>As_1984</span>)
+
+<span class='co'># Generate samples from posterior distribution</span>
+<span class='co'># May take 8 minutes</span>
+<span class='no'>chainLength</span> <span class='kw'>=</span> <span class='fl'>5000</span>
+<span class='no'>burnin</span> <span class='kw'>=</span> <span class='fl'>1000</span>
+<span class='no'>chain_samples</span> <span class='kw'>=</span> <span class='no'>burnin</span>:<span class='no'>chainLength</span>
+
+<span class='no'>outchain_1984</span> <span class='kw'>=</span> <span class='fu'>dina</span>(<span class='kw'>Y</span> <span class='kw'>=</span> <span class='no'>Y_1984</span>, <span class='kw'>Q</span> <span class='kw'>=</span> <span class='no'>Q_1984</span>,
+                     <span class='kw'>chain_length</span> <span class='kw'>=</span> <span class='no'>chainLength</span>)
+
+<span class='co'># Summarize posterior samples for g and 1-s</span>
+<span class='no'>mgs_1984</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='no'>outchain_1984</span>$<span class='no'>GamS</span>[, <span class='no'>chain_samples</span>], <span class='fl'>1</span>, <span class='no'>mean</span>)
+<span class='no'>sgs_1984</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='no'>outchain_1984</span>$<span class='no'>GamS</span>[, <span class='no'>chain_samples</span>], <span class='fl'>1</span>, <span class='no'>sd</span>)
+<span class='no'>mss_1984</span> <span class='kw'>=</span> <span class='fl'>1</span> - <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='no'>outchain_1984</span>$<span class='no'>SigS</span>[, <span class='no'>chain_samples</span>], <span class='fl'>1</span>, <span class='no'>mean</span>)
+<span class='no'>sss_1984</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='no'>outchain_1984</span>$<span class='no'>SigS</span>[, <span class='no'>chain_samples</span>], <span class='fl'>1</span>, <span class='no'>sd</span>)
+<span class='no'>output_1984</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='no'>mgs_1984</span>, <span class='no'>sgs_1984</span>, <span class='no'>mss_1984</span>, <span class='no'>sss_1984</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>output_1984</span>) <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'g Est'</span>,<span class='st'>'g SE'</span>,<span class='st'>'1-s Est'</span>,<span class='st'>'1-s SE'</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>output_1984</span>) <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>Y_1984</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>output_1984</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+
+<span class='co'># Summarize marginal skill distribution using posterior samples for latent</span>
+<span class='co'># class proportions</span>
+<span class='no'>marg_PIs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='no'>As_1984</span>) <span class='kw'>%*%</span> <span class='no'>outchain_1984</span>$<span class='no'>PIs</span>
+<span class='no'>PI_Est</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='no'>marg_PIs</span>[, <span class='no'>chain_samples</span>], <span class='fl'>1</span>, <span class='no'>mean</span>)
+<span class='no'>PI_Sd</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='no'>marg_PIs</span>[, <span class='no'>chain_samples</span>], <span class='fl'>1</span>, <span class='no'>sd</span>)
+<span class='no'>PIoutput</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='no'>PI_Est</span>, <span class='no'>PI_Sd</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>PIoutput</span>) <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'EST'</span>, <span class='st'>'SE'</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>PIoutput</span>) <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>'Skill'</span>, <span class='fl'>1</span>:<span class='no'>K_1984</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>PIoutput</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+
+}
+
+<span class='co'>#######################################################</span>
+<span class='co'># de la Torre (2009) Simulation Replication w/ N = 200</span>
+<span class='co'>#######################################################</span>
+<span class='no'>N</span> <span class='kw'>=</span> <span class='fl'>200</span>
+<span class='no'>K</span> <span class='kw'>=</span> <span class='fl'>5</span>
+<span class='no'>J</span> <span class='kw'>=</span> <span class='fl'>30</span>
+<span class='no'>delta0</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>^<span class='no'>K</span>)
+
+<span class='co'># Creating Q matrix</span>
+<span class='no'>Q</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span>(<span class='no'>K</span>), <span class='fl'>2</span>), <span class='fl'>2</span>*<span class='no'>K</span>, <span class='no'>K</span>, <span class='kw'>byrow</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='kw'>for</span>(<span class='no'>mm</span> <span class='kw'>in</span> <span class='fl'>2</span>:<span class='no'>K</span>) {
+    <span class='no'>temp</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/utils/combn.html'>combn</a></span>(<span class='fl'>1</span>:<span class='no'>K</span>, <span class='kw'>m</span> <span class='kw'>=</span> <span class='no'>mm</span>)
+    <span class='no'>tempmat</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>0</span>, <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>temp</span>), <span class='no'>K</span>)
+    <span class='kw'>for</span>(<span class='no'>j</span> <span class='kw'>in</span> <span class='fl'>1</span>:<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>temp</span>)) <span class='no'>tempmat</span>[<span class='no'>j</span>, <span class='no'>temp</span>[, <span class='no'>j</span>]] <span class='kw'>=</span> <span class='fl'>1</span>
+    <span class='no'>Q</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='no'>Q</span>, <span class='no'>tempmat</span>)
+}
+
+<span class='no'>Q</span> <span class='kw'>=</span> <span class='no'>Q</span>[<span class='fl'>1</span>:<span class='no'>J</span>,]
+
+<span class='co'># Setting item parameters and generating attribute profiles</span>
+<span class='no'>ss</span> <span class='kw'>=</span> <span class='no'>gs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>.2</span>, <span class='no'>J</span>)
+<span class='no'>PIs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>/(<span class='fl'>2</span>^<span class='no'>K</span>), <span class='fl'>2</span>^<span class='no'>K</span>)
+<span class='no'>CLs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:(<span class='fl'>2</span>^<span class='no'>K</span>)) <span class='kw'>%*%</span> <span class='fu'><a href='https://rdrr.io/r/stats/Multinom.html'>rmultinom</a></span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='no'>N</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>prob</span> <span class='kw'>=</span> <span class='no'>PIs</span>)
+
+<span class='co'># Defining matrix of possible attribute profiles</span>
+<span class='no'>As</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0</span>,<span class='no'>K</span>)
+
+<span class='kw'>for</span>(<span class='no'>j</span> <span class='kw'>in</span> <span class='fl'>1</span>:<span class='no'>K</span>) {
+    <span class='no'>temp</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/utils/combn.html'>combn</a></span>(<span class='fl'>1</span>:<span class='no'>K</span>, <span class='kw'>m</span> <span class='kw'>=</span> <span class='no'>j</span>)
+    <span class='no'>tempmat</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>0</span>, <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>temp</span>), <span class='no'>K</span>)
+    <span class='kw'>for</span>(<span class='no'>j</span> <span class='kw'>in</span> <span class='fl'>1</span>:<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>temp</span>)) <span class='no'>tempmat</span>[<span class='no'>j</span>, <span class='no'>temp</span>[, <span class='no'>j</span>]] <span class='kw'>=</span> <span class='fl'>1</span>
+    <span class='no'>As</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='no'>As</span>, <span class='no'>tempmat</span>)
+}
+
+<span class='no'>As</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>As</span>)
+
+<span class='co'># Sample true attribute profiles</span>
+<span class='no'>Alphas</span> <span class='kw'>=</span> <span class='no'>As</span>[<span class='no'>CLs</span>,]
+
+<span class='co'># Simulate data under DINA model </span>
+<span class='no'>Y_sim</span> <span class='kw'>=</span> <span class='kw pkg'>simcdm</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/simcdm/man/sim_dina_items.html'>sim_dina_items</a></span>(<span class='no'>Alphas</span>, <span class='no'>Q</span>, <span class='no'>ss</span>, <span class='no'>gs</span>)
+
+<span class='co'>## Execute MCMC DINA routine ----</span>
+
+<span class='co'># NOTE: This example uses a small chain length to reduce </span>
+<span class='co'># computation time to illustrate the pedagogical concept.</span>
+<span class='co'># In a real-life scenario, increase the chain length to</span>
+<span class='co'># at least 5,000.</span>
+
+<span class='no'>chainLength</span> <span class='kw'>=</span> <span class='fl'>200</span>
+<span class='no'>burnin</span> <span class='kw'>=</span> <span class='fl'>100</span>
+
+<span class='no'>outchain</span> <span class='kw'>=</span> <span class='fu'>dina</span>(<span class='no'>Y_sim</span>, <span class='no'>Q</span>, <span class='kw'>chain_length</span> <span class='kw'>=</span> <span class='no'>chainLength</span>)
+
+<span class='co'>## Summarize posterior samples for g and 1-s ----</span>
+
+<span class='no'>chain_samples</span> <span class='kw'>=</span> <span class='no'>burnin</span>:<span class='no'>chainLength</span>
+<span class='no'>mGs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='no'>outchain</span>$<span class='no'>GamS</span>[, <span class='no'>chain_samples</span>], <span class='fl'>1</span>, <span class='no'>mean</span>)
+<span class='no'>sGs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='no'>outchain</span>$<span class='no'>GamS</span>[, <span class='no'>chain_samples</span>], <span class='fl'>1</span>, <span class='no'>sd</span>)
+<span class='no'>m1mSS</span> <span class='kw'>=</span> <span class='fl'>1</span> - <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='no'>outchain</span>$<span class='no'>SigS</span>[, <span class='no'>chain_samples</span>], <span class='fl'>1</span>, <span class='no'>mean</span>)
+<span class='no'>s1mSS</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='no'>outchain</span>$<span class='no'>SigS</span>[, <span class='no'>chain_samples</span>], <span class='fl'>1</span>, <span class='no'>sd</span>)
+<span class='no'>output</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='no'>mGs</span>, <span class='no'>sGs</span>, <span class='no'>m1mSS</span>, <span class='no'>s1mSS</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>output</span>) <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'g Est'</span>, <span class='st'>'g SE'</span>, <span class='st'>'1-s Est'</span>, <span class='st'>'1-s SE'</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>output</span>) <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>'Item'</span>, <span class='fl'>1</span>:<span class='no'>J</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>output</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+
+<span class='co'>## Summarize marginal skill distribution ---- </span>
+
+<span class='co'># Via posterior samples for latent class proportions</span>
+<span class='no'>PIoutput</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='no'>outchain</span>$<span class='no'>PIs</span>, <span class='fl'>1</span>, <span class='no'>mean</span>), <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='no'>outchain</span>$<span class='no'>PIs</span>, <span class='fl'>1</span>, <span class='no'>sd</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>PIoutput</span>) <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'EST'</span>, <span class='st'>'SE'</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>PIoutput</span>) <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='no'>As</span>, <span class='fl'>1</span>, <span class='no'>paste0</span>, <span class='kw'>collapse</span><span class='kw'>=</span><span class='st'>''</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>PIoutput</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
