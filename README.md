@@ -1,6 +1,10 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+# dina
+
+<!-- badges: start -->
+
 [![Build
 Status](https://travis-ci.org/tmsalab/dina.svg)](https://travis-ci.org/tmsalab/dina)
 [![Package-License](http://img.shields.io/badge/license-GPL%20\(%3E=2\)-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
@@ -14,8 +18,7 @@ Downloads](http://cranlogs.r-pkg.org/badges/dina?color=brightgreen)](http://www.
 Downloads](http://cranlogs.r-pkg.org/badges/grand-total/dina?color=brightgreen)](http://www.r-pkg.org/pkg/dina)
 [![Coverage
 status](https://codecov.io/gh/tmsalab/dina/branch/master/graph/badge.svg)](https://codecov.io/github/tmsalab/dina?branch=master)
-
-# `dina` R package
+<!-- badges: end -->
 
 Estimate the Deterministic Input, Noisy And Gate (DINA) cognitive
 diagnostic model parameters using the Gibbs sampler described by
@@ -70,7 +73,7 @@ Q = sim_q_matrix(J, K)
 # Simulate subject attributes
 subject_alphas = sim_subject_attributes(N, K)
 
-# Item data
+# Simulate Item Data
 items_dina = sim_dina_items(subject_alphas, Q, ss, gs)
 ```
 
@@ -81,8 +84,8 @@ Steven Andrew Culpepper and James Joseph Balamuta
 ## Citing the `dina` package
 
 To ensure future development of the package, please cite `dina` package
-if used during an analysis or simulations. Citation information for the
-package may be acquired by using in *R*:
+if used during an analysis or simulation studies. Citation information
+for the package may be acquired by using in *R*:
 
 ``` r
 citation("dina")
