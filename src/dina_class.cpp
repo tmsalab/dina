@@ -43,7 +43,7 @@ public:
         ag0 = 1.0;
         bg0 = 1.0;
         
-        pil0 = delta0 / double(C); // prior probability
+        pil0 = arma::ones<arma::vec>(C) / double(C); // prior probability
         
         CLASS = arma::vec(N);
         
@@ -104,6 +104,9 @@ public:
             Ncs(ci) = 1.0 + Ncs(ci);
             CLASS(i) = ci;
         }
+        
+        // Update pi
+        pis = rgen::rdirichlet(Ncs + delta0);
     }
     
     void update_guessing_and_slipping () {
