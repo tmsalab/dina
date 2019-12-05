@@ -63,7 +63,6 @@ public:
         ss = arma::randu<arma::vec>(J);
         gs = arma::randu<arma::vec>(J);
         pis = arma::randu<arma::vec>(C);
-        
     }
     
     void update_alpha () { 
@@ -102,6 +101,7 @@ public:
             ci = rgen::rmultinomial(PS);
             alphas.row(i) = Amat.row(ci);
             Ncs(ci) = 1.0 + Ncs(ci);
+            // Update subject class
             CLASS(i) = ci;
         }
         
@@ -160,8 +160,6 @@ public:
         }
     }
     
-    
-    
     unsigned int get_chain_length() const { return chain_length; }
     unsigned int get_observations() const { return N; }
     unsigned int get_items() const { return J; }
@@ -171,7 +169,7 @@ public:
     arma::mat get_pis() const { return PIs; }
     arma::mat get_slipping() const { return SigS; }
     arma::mat get_guessing() const { return GamS; }
-    
+
 };
 
 
@@ -179,6 +177,7 @@ public:
 // [[Rcpp::export]]
 Rcpp::List dina_cpp_class(const arma::mat& Y, const arma::mat& Q, 
                           unsigned int chain_length) {
+    
     DINA dina_model(Y, Q, chain_length);
     
     dina_model.run_estimation();
@@ -187,6 +186,7 @@ Rcpp::List dina_cpp_class(const arma::mat& Y, const arma::mat& Q,
         Rcpp::Named("CLASSES", dina_model.get_classes()),
         Rcpp::Named("PIs", dina_model.get_pis()),
         Rcpp::Named("SigS", dina_model.get_slipping()), 
-        Rcpp::Named("GamS", dina_model.get_guessing()));
+        Rcpp::Named("GamS", dina_model.get_guessing())
+        );
     
     }
