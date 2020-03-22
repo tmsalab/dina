@@ -6,6 +6,10 @@
 - Remove manual escape of `%` as it is auto-escaped by `roxygen2` v7.0.0.
 - Update README
 
+## Deployment
+
+- Changed from Travis-CI to GitHub Actions ([#7](https://github.com/tmsalab/dina/pull/7))
+
 # dina 2.0.0
 
 ## API Breakage
