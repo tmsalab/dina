@@ -3,6 +3,5 @@ home:
 
 template:
   params:
-    bootswatch: cerulean
     ganalytics: UA-151562227-1
 

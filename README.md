@@ -5,8 +5,8 @@
 
 <!-- badges: start -->
 
-[![Build
-Status](https://travis-ci.org/tmsalab/dina.svg)](https://travis-ci.org/tmsalab/dina)
+[![R build
+status](https://github.com/tmsalab/dina/workflows/R-CMD-check/badge.svg)](https://github.com/tmsalab/dina/actions)
 [![Package-License](http://img.shields.io/badge/license-GPL%20\(%3E=2\)-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
 [![CRAN Version
 Badge](http://www.r-pkg.org/badges/version/dina)](https://cran.r-project.org/package=dina)
