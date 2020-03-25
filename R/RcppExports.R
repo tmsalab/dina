@@ -85,3 +85,8 @@ DINA_Gibbs_cpp <- function(Y, Q, chain_length = 10000L) {
     .Call(`_dina_DINA_Gibbs_cpp`, Y, Q, chain_length)
 }
 
+#' @export
+dina_cpp_class <- function(Y, Q, chain_length) {
+    .Call(`_dina_dina_cpp_class`, Y, Q, chain_length)
+}
+
