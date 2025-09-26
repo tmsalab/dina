@@ -1,20 +1,21 @@
 citHeader("To cite the 'dina' R package and methods paper in publications use:")
 
-citEntry(entry = "Manual",
+bibentry(bibtype      = "Manual",
          title        = "{dina: Bayesian Estimation of DINA Model}",
-         author       = personList(as.person("Steven Andrew Culpepper"),
-                                   as.person("James Joseph Balamuta")
-                                  ),
+         author       = c(
+                            as.person("Steven Andrew Culpepper"),
+                            as.person("James Joseph Balamuta")
+                        ),
          year         = 2019,
          textVersion  = paste("Culpepper, S. A. and Balamuta, J. J. (2019)",
                               "dina: Bayesian Estimation of DINA Model.",
                               "URL https://cran.r-project.org/package=dina.")
 )
 
-citEntry(entry   = "Article",
+bibentry(bibtype = "Article",
          title   = "{Bayesian Estimation of the DINA Model With Gibbs Sampling}",
-         author  = personList(as.person("Steven Andrew Culpepper")),
-	      journal = "Journal of Educational and Behavioral Statistics",
+         author  = c(as.person("Steven Andrew Culpepper")),
+	     journal = "Journal of Educational and Behavioral Statistics",
          year    = "2015",
          url     = "https://doi.org/10.3102/1076998615595403",
          volume  = "40",
