@@ -1,6 +1,3 @@
-# Enable C++11
-CXX_STD=CXX11
-
 # Enable the header file and OpenMP
 PKG_CXXFLAGS=-I../inst/include $(SHLIB_OPENMP_CXXFLAGS) 
 
