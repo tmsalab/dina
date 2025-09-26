@@ -3,17 +3,15 @@
 \docType{package}
 \name{dina-package}
 \alias{dina-package}
-\alias{_PACKAGE}
 \title{dina: Bayesian Estimation of DINA Model}
 \description{
-Estimate the Deterministic Input, Noisy "And" Gate (DINA)
-    cognitive diagnostic model parameters using the Gibbs sampler described
-    by Culpepper (2015) <doi:10.3102/1076998615595403>.
+Estimate the Deterministic Input, Noisy "And" Gate (DINA) cognitive diagnostic model parameters using the Gibbs sampler described by Culpepper (2015) \doi{10.3102/1076998615595403}.
 }
 \seealso{
 Useful links:
 \itemize{
   \item \url{https://github.com/tmsalab/dina}
+  \item \url{https://tmsalab.github.io/dina}
   \item Report bugs at \url{https://github.com/tmsalab/dina/issues}
 }
 
