@@ -17,16 +17,16 @@ Authors@R: c(
 Description: Estimate the Deterministic Input, Noisy "And" Gate (DINA)
     cognitive diagnostic model parameters using the Gibbs sampler described
     by Culpepper (2015) <doi:10.3102/1076998615595403>.
-URL: https://github.com/tmsalab/dina
+URL: https://github.com/tmsalab/dina, https://tmsalab.github.io/dina
 BugReports: https://github.com/tmsalab/dina/issues
 License: GPL (>= 2)
-Depends: R (>= 3.4.0), simcdm (>= 0.1.0)
-LinkingTo: Rcpp (>= 1.0.0), RcppArmadillo (>= 0.9.200), simcdm, rgen
-Imports: Rcpp (>= 1.0.0)
+Depends: R (>= 4.3.0), simcdm (>= 0.1.0)
+Imports: Rcpp (>= 1.1.0)
+LinkingTo: Rcpp, RcppArmadillo (>= 15.0.2-2), simcdm, rgen
 Suggests: 
     CDM,
     covr,
     testthat
-RoxygenNote: 7.0.2
+RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
