@@ -6,6 +6,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // update_alpha
 Rcpp::List update_alpha(const arma::mat& Amat, const arma::mat& Q, const arma::vec& ss, const arma::vec& gs, const arma::mat& Y, const arma::vec& PIs, arma::mat& ALPHAS, const arma::vec& delta0);
 RcppExport SEXP _dina_update_alpha(SEXP AmatSEXP, SEXP QSEXP, SEXP ssSEXP, SEXP gsSEXP, SEXP YSEXP, SEXP PIsSEXP, SEXP ALPHASSEXP, SEXP delta0SEXP) {
