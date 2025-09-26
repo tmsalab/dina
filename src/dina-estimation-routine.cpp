@@ -69,7 +69,7 @@ Rcpp::List update_alpha(const arma::mat &Amat, const arma::mat &Q,
                 }
             }
         }
-        PS = PYCS % PIs / (arma::conv_to<double>::from(PYCS.t() * PIs));
+        PS = PYCS % PIs / (arma::as_scalar(PYCS.t() * PIs));
         ci = rgen::rmultinomial(PS);
         ALPHAS.row(i) = Amat.row(ci);
         Ncs(ci) = 1.0 + Ncs(ci);
@@ -120,10 +120,10 @@ Rcpp::List update_sg(const arma::mat &Y, const arma::mat &Q,
         us = R::runif(0, 1);
         ug = R::runif(0, 1);
         ETA = arma::zeros<arma::vec>(N);
-        qq = arma::conv_to<double>::from(Q.row(j) * (Q.row(j)).t());
+        qq = arma::as_scalar(Q.row(j) * (Q.row(j)).t());
         ETA.elem(arma::find(AQ.col(j) == qq)).fill(1.0);
 
-        y_dot_eta = arma::conv_to<double>::from((Y.col(j)).t() * ETA);
+        y_dot_eta = arma::as_scalar((Y.col(j)).t() * ETA);
         T = sum(ETA);
         S = T - y_dot_eta;
         G = sum(Y.col(j)) - y_dot_eta;
