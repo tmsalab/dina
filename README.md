@@ -1,23 +1,12 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+<!-- README.md is generated from README.qmd. Please edit that file -->
 
 # dina
 
 <!-- badges: start -->
 
-[![R build
-status](https://github.com/tmsalab/dina/workflows/R-CMD-check/badge.svg)](https://github.com/tmsalab/dina/actions)
-[![Package-License](http://img.shields.io/badge/license-GPL%20\(%3E=2\)-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
-[![CRAN Version
-Badge](http://www.r-pkg.org/badges/version/dina)](https://cran.r-project.org/package=dina)
-[![CRAN
-Status](https://cranchecks.info/badges/worst/dina)](https://cran.r-project.org/web/checks/check_results_dina.html)
-[![RStudio CRAN Mirror’s Monthly
-Downloads](http://cranlogs.r-pkg.org/badges/dina?color=brightgreen)](http://www.r-pkg.org/pkg/dina)
-[![RStudio CRAN Mirror’s Total
-Downloads](http://cranlogs.r-pkg.org/badges/grand-total/dina?color=brightgreen)](http://www.r-pkg.org/pkg/dina)
-[![Coverage
-status](https://codecov.io/gh/tmsalab/dina/branch/master/graph/badge.svg)](https://codecov.io/github/tmsalab/dina?branch=master)
+[![R-CMD-check](https://github.com/tmsalab/dina/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tmsalab/dina/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 Estimate the Deterministic Input, Noisy And Gate (DINA) cognitive

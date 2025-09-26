@@ -1,27 +1,24 @@
 ---
-output: github_document
+format: gfm
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- README.md is generated from README.qmd. Please edit that file -->
 
-```{r, echo = FALSE}
+```{r}
+#| label: setup
+#| include: false
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README-"
+  fig.path = "man/figures/README-",
+  out.width = "100%"
 )
 ```
 
 # dina
 
 <!-- badges: start -->
-[![R build status](https://github.com/tmsalab/dina/workflows/R-CMD-check/badge.svg)](https://github.com/tmsalab/dina/actions)
-[![Package-License](http://img.shields.io/badge/license-GPL%20(%3E=2)-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
-[![CRAN Version Badge](http://www.r-pkg.org/badges/version/dina)](https://cran.r-project.org/package=dina)
-[![CRAN Status](https://cranchecks.info/badges/worst/dina)](https://cran.r-project.org/web/checks/check_results_dina.html)
-[![RStudio CRAN Mirror's Monthly Downloads](http://cranlogs.r-pkg.org/badges/dina?color=brightgreen)](http://www.r-pkg.org/pkg/dina)
-[![RStudio CRAN Mirror's Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/dina?color=brightgreen)](http://www.r-pkg.org/pkg/dina)
-[![Coverage status](https://codecov.io/gh/tmsalab/dina/branch/master/graph/badge.svg)](https://codecov.io/github/tmsalab/dina?branch=master)
+[![R-CMD-check](https://github.com/tmsalab/dina/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tmsalab/dina/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 Estimate the Deterministic Input, Noisy And Gate (DINA) cognitive diagnostic
@@ -32,13 +29,17 @@ model parameters using the Gibbs sampler described by Culpepper (2015)
 
 You can install `dina` from CRAN using:
 
-```{r cran-installation, eval = FALSE}
+```{r}
+#| label: cran-installation
+#| eval: false
 install.packages("dina")
 ```
 
 Or, you can be on the cutting-edge development version on GitHub using:
 
-```{r gh-installation, eval = FALSE}
+```{r}
+#| label: gh-installation
+#| eval: false
 if(!requireNamespace("devtools")) install.packages("devtools")
 devtools::install_github("tmsalab/dina")
 ```
@@ -47,19 +48,25 @@ devtools::install_github("tmsalab/dina")
 
 To use the `dina` package, load it into _R_ using:
 
-```{r example, message = FALSE}
+```{r}
+#| label: dina-load
+#| message: false
 library("dina")
 ```
 
 From there, the DINA CDM can be estimated using:
 
-```{r dina-est, eval = FALSE}
+```{r}
+#| label: dina-est
+#| eval: false
 dina_model = dina(<data>, <q>, chain_length = 10000)
 ```
 
 To simulate item data under DINA, use:
 
-```{r dina-sim, eval = FALSE}
+```{r}
+#| label: dina-sim
+#| eval: false
 # Set a seed for reproducibility
 set.seed(888)
 
@@ -91,7 +98,9 @@ To ensure future development of the package, please cite `dina`
 package if used during an analysis or simulation studies. Citation information
 for the package may be acquired by using in *R*:
 
-```{r, eval = FALSE}
+```{r}
+#| label: citation
+#| eval: false
 citation("dina")
 ```
 
