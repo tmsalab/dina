@@ -14,7 +14,7 @@
 
 ## Documentation
 
-- Added a `pkgdown` website that deploys to <http://tmsalab.github.io/dina>
+- Added a `pkgdown` website that deploys to <https://tmsalab.github.io/dina/>
 - Remove manual escape of `%` as it is auto-escaped by `roxygen2` v7.0.0.
 - Update README
 

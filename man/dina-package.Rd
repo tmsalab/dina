@@ -11,7 +11,7 @@ Estimate the Deterministic Input, Noisy "And" Gate (DINA) cognitive diagnostic m
 Useful links:
 \itemize{
   \item \url{https://github.com/tmsalab/dina}
-  \item \url{https://tmsalab.github.io/dina}
+  \item \url{https://tmsalab.github.io/dina/}
   \item Report bugs at \url{https://github.com/tmsalab/dina/issues}
 }
 
