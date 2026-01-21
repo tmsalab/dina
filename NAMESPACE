@@ -2,6 +2,7 @@
 
 export(DINA_Gibbs)
 export(dina)
+export(dina_cpp_class)
 importFrom(Rcpp,evalCpp)
 importFrom(simcdm,attribute_classes)
 importFrom(simcdm,sim_dina_items)
