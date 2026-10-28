@@ -1,3 +1,5 @@
+# dina [![A hexagonal logo for dina: three binary inputs, each a 1, feed a solid AND gate with dina cut out of it, and the gate's output wire becomes a Bayesian point-interval under the orange posterior density of 1 − s, crossed by a dashed flat prior.](reference/figures/dina-logo-animated-light.svg)](https://tmsalab.github.io/dina/)
+
 Estimate the Deterministic Input, Noisy And Gate (DINA) cognitive
 diagnostic model parameters using the Gibbs sampler described by
 Culpepper (2015) \<doi: 10.3102/1076998615595403\>.

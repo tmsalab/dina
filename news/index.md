@@ -10,8 +10,8 @@ CRAN release: 2026-10-28
   applied an extra (1 - g) factor to every item a subject answered
   correctly. The factor was the same for every latent class, so it
   cancelled in the posterior, and samples from
-  [`dina()`](../reference/dina.md) are unchanged
-  ([\#11](https://github.com/tmsalab/dina/pull/11)).
+  [`dina()`](https://tmsalab.github.io/dina/reference/dina.md) are
+  unchanged ([\#11](https://github.com/tmsalab/dina/pull/11)).
 
 ## dina 2.0.2
 
@@ -52,10 +52,12 @@ CRAN release: 2019-02-01
 
 ### API Breakage
 
-- Deprecated [`DINA_Gibbs()`](../reference/DINA_Gibbs.md) in favor of
-  [`dina()`](../reference/dina.md), which generates the correct alpha
-  matrix (`Amat`) inside of the function instead of relying on the user
-  to set it up.
+- Deprecated
+  [`DINA_Gibbs()`](https://tmsalab.github.io/dina/reference/DINA_Gibbs.md)
+  in favor of
+  [`dina()`](https://tmsalab.github.io/dina/reference/dina.md), which
+  generates the correct alpha matrix (`Amat`) inside of the function
+  instead of relying on the user to set it up.
 - The call to estimate with the gibbs sampling technique is now:
   `dina(Y, Q, chain_length)`
 

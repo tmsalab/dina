@@ -1,11 +1,11 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
-<url><loc>/404.html</loc></url>
-<url><loc>/authors.html</loc></url>
-<url><loc>/index.html</loc></url>
-<url><loc>/news/index.html</loc></url>
-<url><loc>/reference/DINA_Gibbs.html</loc></url>
-<url><loc>/reference/dina-package.html</loc></url>
-<url><loc>/reference/dina.html</loc></url>
-<url><loc>/reference/index.html</loc></url>
+<url><loc>https://tmsalab.github.io/dina/404.html</loc></url>
+<url><loc>https://tmsalab.github.io/dina/authors.html</loc></url>
+<url><loc>https://tmsalab.github.io/dina/index.html</loc></url>
+<url><loc>https://tmsalab.github.io/dina/news/index.html</loc></url>
+<url><loc>https://tmsalab.github.io/dina/reference/DINA_Gibbs.html</loc></url>
+<url><loc>https://tmsalab.github.io/dina/reference/dina-package.html</loc></url>
+<url><loc>https://tmsalab.github.io/dina/reference/dina.html</loc></url>
+<url><loc>https://tmsalab.github.io/dina/reference/index.html</loc></url>
 </urlset>
 

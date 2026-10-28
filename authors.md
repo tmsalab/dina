@@ -11,7 +11,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/tmsalab/dina/blob/2.0.3/inst/CITATION)
+[`inst/CITATION`](https://github.com/tmsalab/dina/blob/master/inst/CITATION)
 
 Culpepper, S. A. and Balamuta, J. J. (2019) dina: Bayesian Estimation of
 DINA Model. URL https://cran.r-project.org/package=dina.
