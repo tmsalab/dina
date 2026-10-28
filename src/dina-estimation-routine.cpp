@@ -51,22 +51,24 @@ Rcpp::List update_alpha(const arma::mat &Amat, const arma::mat &Q,
         for (unsigned int c = 0; c < C; c++) {
 
             for (unsigned int j = 0; j < J; j++) {
-                etaij = 1.0;
-                if (arma::dot(Amat.row(c), Q.row(j)) <
-                    arma::dot(Q.row(j), Q.row(j))) {
-                    etaij = 0.0;
-                }
-                if (etaij == 1.0 and Y(i, j) == 1.0) {
-                    PYCS(c) = (1.0 - ss(j)) * PYCS(c);
-                }
-                if (etaij == 0.0 and Y(i, j) == 1.0) {
-                    PYCS(c) = gs(j) * PYCS(c);
-                }
-                if (etaij == 1.0 and Y(i, j) == 0.0) {
-                    PYCS(c) = ss(j) * PYCS(c);
-                } else {
-                    PYCS(c) = (1.0 - gs(j)) * PYCS(c);
-                }
+              etaij = 1.0;
+              if (arma::dot(Amat.row(c), Q.row(j)) < arma::dot(Q.row(j), Q.row(j))) {
+                  etaij = 0.0;
+              }
+              
+              if (etaij == 1.0) {
+                  if (Y(i, j) == 1.0) {
+                      PYCS(c) *= (1.0 - ss(j));
+                  } else if (Y(i, j) == 0.0) {
+                      PYCS(c) *= ss(j);
+                  }
+              } else { // etaij == 0.0
+                  if (Y(i, j) == 1.0) {
+                      PYCS(c) *= gs(j);
+                  } else if (Y(i, j) == 0.0) {
+                      PYCS(c) *= (1.0 - gs(j));
+                  }
+              }
             }
         }
         PS = PYCS % PIs / (arma::as_scalar(PYCS.t() * PIs));
