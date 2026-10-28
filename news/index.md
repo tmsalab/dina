@@ -1,16 +1,5 @@
 # Changelog
 
-## dina 2.0.3
-
-### Bug fixes
-
-- Fixed the likelihood computed in the internal `update_alpha()`, which
-  applied an extra (1 - g) factor to every item a subject answered
-  correctly. The factor was the same for every latent class, so it
-  cancelled in the posterior, and samples from
-  [`dina()`](../reference/dina.md) are unchanged
-  ([\#11](https://github.com/tmsalab/dina/pull/11)).
-
 ## dina 2.0.2
 
 CRAN release: 2025-09-28
