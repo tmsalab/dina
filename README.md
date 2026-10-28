@@ -2,7 +2,7 @@
 
 <!-- README.md is generated from README.qmd. Please edit that file -->
 
-# dina
+# dina <a href="https://tmsalab.github.io/dina/"><picture><source media="(prefers-color-scheme: dark)" srcset="man/figures/dina-logo-animated-dark.svg"><img src="man/figures/dina-logo-animated-light.svg" width="150" align="right" alt="A hexagonal logo for dina: three binary inputs, each a 1, feed a solid AND gate with dina cut out of it, and the gate's output wire becomes a Bayesian point-interval under the orange posterior density of 1 − s, crossed by a dashed flat prior."/></picture></a>
 
 <!-- badges: start -->
 
